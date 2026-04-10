@@ -1,0 +1,3 @@
+window.highlightCode = () => {
+    Prism.highlightAll();
+};
