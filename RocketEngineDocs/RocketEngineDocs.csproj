@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="wwwroot\css\SyntaxTweaks.css" />
+      <None Include="docs\css\SyntaxTweaks.css" />
     </ItemGroup>
 
 </Project>
