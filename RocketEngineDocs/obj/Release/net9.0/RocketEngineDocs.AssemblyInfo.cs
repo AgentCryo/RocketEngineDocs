@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RocketEngineDocs")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8222e97731e2d315d301e16f5263f546a3ad24e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b7b848f9da9cdce705d56db5780a8a49fa41bcfd")]
 [assembly: System.Reflection.AssemblyProductAttribute("RocketEngineDocs")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RocketEngineDocs")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
