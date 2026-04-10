@@ -11,7 +11,7 @@ public class DevlogHeader
     public string Url { get; set; } = "";
     public int Order { get; set; }
     public bool IsWip { get; set; }
-    public string[] Libraries { get; set; } = Array.Empty<string>();
+    public string[] Libraries { get; set; } = [];
 
     public DateTime Date { get; set; }
 }

@@ -199,8 +199,6 @@ C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\icudt_CJK.tjcz0u77k5.dat
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\icudt_EFIGS.tptq2av103.dat
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\icudt_no_CJK.lfu7j35m59.dat
-C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\RocketEngineDocs.r6468v9ht6.wasm
-C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\RocketEngineDocs.rql4ywu6y2.pdb
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\blazor.boot.json
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\blazor.webassembly.js.gz
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\Microsoft.AspNetCore.Authorization.tnyc7xpluy.wasm.gz
@@ -403,8 +401,6 @@ C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\icudt_CJK.tjcz0u77k5.dat.gz
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\icudt_EFIGS.tptq2av103.dat.gz
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\icudt_no_CJK.lfu7j35m59.dat.gz
-C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\RocketEngineDocs.r6468v9ht6.wasm.gz
-C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\RocketEngineDocs.rql4ywu6y2.pdb.gz
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\blazor.boot.json.gz
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\RocketEngineDocs.staticwebassets.runtime.json
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\RocketEngineDocs.staticwebassets.endpoints.json
@@ -1079,9 +1075,6 @@ C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\compressed\aifjf28urs-tjcz0u77k5.gz
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\compressed\bg3duu0qef-tptq2av103.gz
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\compressed\p3tharewl9-lfu7j35m59.gz
-C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\compressed\li2a841xfi-r6468v9ht6.gz
-C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\compressed\lfcdg5pi8b-rql4ywu6y2.gz
-C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\compressed\cnml3dms8f-1iu8vu9t4b.gz
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\staticwebassets.build.json
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\staticwebassets.build.json.cache
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\staticwebassets.development.json
@@ -1091,3 +1084,10 @@ C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\refint\RocketEngineDocs.dll
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\RocketEngineDocs.pdb
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\ref\RocketEngineDocs.dll
+C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\RocketEngineDocs.z48u9gsb4b.wasm
+C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\RocketEngineDocs.egt35q3w1w.pdb
+C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\RocketEngineDocs.z48u9gsb4b.wasm.gz
+C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\RocketEngineDocs.egt35q3w1w.pdb.gz
+C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\compressed\li2a841xfi-z48u9gsb4b.gz
+C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\compressed\lfcdg5pi8b-egt35q3w1w.gz
+C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\compressed\cnml3dms8f-eisqvayfv0.gz
