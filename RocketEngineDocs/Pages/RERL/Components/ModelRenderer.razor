@@ -1,0 +1,72 @@
+@page "/RERL/Components/ModelRenderer"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RERL/Components/ModelRenderer")
+            .Title("ModelRenderer")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RERL.Components")
+            .Library("RERL")
+            .Paragraph("A component that renders a model using a shader. Handles mesh consolidation, VAO/VBO/IBO creation, material SSBO generation, and indirect draw command setup for single‑sided and double‑sided materials.")
+            .Members(m => m
+
+                // === Fields ===
+                .Field("Entity", "Owner", "The entity that owns this component.")
+                .Field("bool", "AutoRegister", "Whether this renderer automatically registers itself with the RenderPipeline.")
+
+                // === Methods ===
+
+                .Method("ModelRenderer", "SetAutoRegister(bool autoRegister)", "Sets whether this renderer should automatically register itself.", mb => mb
+                    .Parameter("autoRegister:", "Whether auto‑registration should be enabled.")
+                )
+
+                .Method("ModelRenderer", "AttachModel(Model model)", "Attaches a model to this renderer.", mb => mb
+                    .Parameter("model:", "The model to attach.")
+                )
+
+                .Method("ModelRenderer", "AttachShader(Shader shader, bool buildModelBuffers)", "Attaches a shader to this renderer.", mb => mb
+                    .Parameter("shader:", "The shader to attach.")
+                    .Parameter("buildModelBuffers:", "Whether model buffers should be built immediately.")
+                )
+
+                .Method("Shader?", "GetShader()", "Gets the attached shader.")
+
+                .Method("void", "OnAdd()", "Called when the component is added to an entity. Registers with the RenderPipeline if AutoRegister is enabled.")
+
+                .Method("void", "BuildModelBuffers()", "Builds the VAO, VBO, IBO, material buffers, and indirect draw commands for the attached model.", mb => mb
+                    .Exception("Logs a warning if the model or shader is missing.")
+                )
+
+                .Method("void", "Render(int instanceCount)", "Renders the model using the attached shader and the owner's Transform.", mb => mb
+                    .Parameter("instanceCount:", "The number of instances to draw.")
+                    .Exception("Logs a warning if the model or shader is missing.")
+                )
+
+                .Method("void", "RebuildMaterialSSBO()", "Rebuilds the material SSBO using the current local materials.")
+
+                .Method("void", "Load()", "Called when the scene is loaded.")
+
+                .Method("void", "Update(float deltaTime)", "Updates the component.", mb => mb
+                    .Parameter("deltaTime:", "Time elapsed since the last update.")
+                )
+
+                .Method("void", "DisposeBuffers()", "Deletes all GPU buffers associated with this renderer.")
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

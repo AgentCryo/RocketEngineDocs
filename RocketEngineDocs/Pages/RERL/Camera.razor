@@ -1,0 +1,79 @@
+@page "/RERL/Camera"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RERL/Camera")
+            .Title("Camera")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RERL")
+            .Library("RERL")
+            .Paragraph("Represents a 3D camera with position, rotation, and view/projection matrices. Provides methods for updating the view matrix and configuring projection using horizontal or vertical field of view.")
+            .Members(m => m
+
+                // === Fields ===
+                .Field("bool", "IsDirty", "Indicates whether the camera's matrices need to be recalculated.")
+
+                // === Properties ===
+                .Field("float", "Near", "The near clipping plane distance.")
+                .Field("float", "Far", "The far clipping plane distance.")
+
+                // === Accessors ===
+                .Method("Matrix4", "GetProjection()", "Gets the current projection matrix.")
+                .Method("Matrix4", "GetView()", "Gets the current view matrix.")
+
+                // === Projection Methods ===
+                .Method("void", "SetProjectionFovYInDegrees(float fovY, float aspect, float near, float far)", 
+                    "Sets the projection matrix using a vertical field of view (in degrees).", mb => mb
+                        .Parameter("fovY:", "Vertical field of view in degrees.")
+                        .Parameter("aspect:", "Screen width divided by screen height.")
+                        .Parameter("near:", "Near clipping plane distance.")
+                        .Parameter("far:", "Far clipping plane distance.")
+                )
+
+                .Method("void", "SetProjectionFovXInDegrees(float fovX, float aspect, float near, float far)", 
+                    "Sets the projection matrix using a horizontal field of view (in degrees).", mb => mb
+                        .Parameter("fovX:", "Horizontal field of view in degrees.")
+                        .Parameter("aspect:", "Screen width divided by screen height.")
+                        .Parameter("near:", "Near clipping plane distance.")
+                        .Parameter("far:", "Far clipping plane distance.")
+                )
+
+                .Method("Matrix4", "CreatePerspectiveFieldOfViewLH(float fov, float aspect, float near, float far)", 
+                    "Creates a left‑handed perspective projection matrix.", mb => mb
+                        .Parameter("fov:", "Field of view in radians.")
+                        .Parameter("aspect:", "Screen width divided by screen height.")
+                        .Parameter("near:", "Near clipping plane distance.")
+                        .Parameter("far:", "Far clipping plane distance.")
+                )
+
+                // === View Matrix ===
+                .Method("void", "UpdateViewMatrix()", 
+                    "Updates the view matrix based on the camera's position and rotation.")
+
+                // === Transform Setters ===
+                .Method("void", "SetPosition(Vector3 position)", "Sets the camera's world‑space position.", mb => mb
+                    .Parameter("position:", "The new camera position.")
+                )
+
+                .Method("void", "SetRotation(Quaternion rotation)", "Sets the camera's world‑space rotation.", mb => mb
+                    .Parameter("rotation:", "The new camera rotation.")
+                )
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

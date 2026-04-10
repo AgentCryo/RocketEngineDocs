@@ -1,0 +1,26 @@
+@using RocketEngineDocs.Components
+<div class="devlog-header">
+    <h1>@Meta.Title</h1>
+
+    <div class="devlog-meta">
+        <span class="devlog-version">@Meta.Version</span>
+
+        <span class="devlog-date">@Meta.Date.ToString("MM/dd/yy")</span>
+
+        @if (Meta.IsWip)
+        {
+            <span class="devlog-wip">WIP</span>
+        }
+
+        @foreach (var lib in Meta.Libraries)
+        {
+            <LibraryBadge Name="@lib" />
+        }
+    </div>
+
+    <p class="devlog-summary">@Meta.Summary</p>
+</div>
+
+@code {
+    [Parameter] public DevlogHeader Meta { get; set; } = default!;
+}

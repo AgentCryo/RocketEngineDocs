@@ -1,0 +1,93 @@
+@page "/RCS/RCS_Core"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RCS/RCS_Core")
+            .Title("RCS_Core")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RCS")
+            .Library("RCS")
+            .Paragraph("Core static class responsible for managing scenes, switching active scenes, and updating/loading the active scene.")
+            .Members(m => m
+
+                // === Class ===
+                .Class("Scene", "Represents a scene containing entities and update/load behavior.", "/RCS/RCS_Core/Scene")
+
+                // === Methods ===
+
+                .Method("Scene", "GetActiveScene()", "Returns the currently active scene.", mb => mb
+                    .Exception("Thrown if no active scene is set.")
+                )
+
+                .Method("void", "SetActiveScene(string name)", "Sets the active scene by name.", mb => mb
+                    .Parameter("name:", "The name of the scene to activate.")
+                    .Exception("Thrown if the scene does not exist.")
+                )
+
+                .Method("void", "AddScene(Scene scene)", "Adds a scene to the engine.", mb => mb
+                    .Parameter("scene:", "The scene to add.")
+                    .Exception("Thrown if a scene with the same name already exists.")
+                )
+
+                .Method("void", "RemoveScene(Scene scene)", "Removes a scene from the engine.", mb => mb
+                    .Parameter("scene:", "The scene to remove.")
+                    .Exception("Thrown if the scene does not exist.")
+                )
+
+                .Method("void", "RemoveScene(string name)", "Removes a scene from the engine by name.", mb => mb
+                    .Parameter("name:", "The name of the scene to remove.")
+                    .Exception("Thrown if the scene does not exist.")
+                )
+
+                .Method("void", "LoadActiveScene()", "Calls Load() on the active scene.", mb => mb
+                    .Exception("Thrown if no active scene is set.")
+                )
+
+                .Method("void", "UpdateActiveScene(double deltaTime)", "Updates the active scene.", mb => mb
+                    .Parameter("deltaTime:", "Time elapsed since the last update.")
+                    .Exception("Thrown if no active scene is set.")
+                )
+            )// === Example Section ===
+            .Section("Example Usage:", s => s
+                .CodeBlock(
+                    @"using RCS;
+
+// Create scenes
+var menu = new Scene(""Menu"");
+var game = new Scene(""Game"");
+
+// Add scenes to the engine
+RCS_Core.AddScene(menu);
+RCS_Core.AddScene(game);
+
+// Set the active scene
+RCS_Core.SetActiveScene(""Menu"");
+
+// Load the active scene
+RCS_Core.LoadActiveScene();
+
+// Update loop
+while (running)
+{
+    RCS_Core.UpdateActiveScene(deltaTime);
+}")
+            )
+            ;
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

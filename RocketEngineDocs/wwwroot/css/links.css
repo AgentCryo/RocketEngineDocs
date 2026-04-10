@@ -1,0 +1,42 @@
+/* === RE-LINK: FULLY ISOLATED, NO INHERITED BACKGROUNDS === */
+a.re-link {
+    all: unset;
+    display: inline;
+    cursor: pointer;
+
+    /* Re-apply only what you WANT */
+    color: var(--re-accent-blue-soft);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.18s ease;
+}
+
+/* Hover */
+a.re-link:hover {
+    color: var(--re-accent-blue);
+}
+
+/* Underline animation */
+a.re-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 0;
+    height: 2px;
+    background: var(--re-accent-blue);
+    transition: width 0.25s ease;
+    pointer-events: none;
+}
+
+a.re-link:hover::after {
+    width: 100%;
+}
+
+a.re-link:hover,
+a.re-link:focus,
+a.re-link:active {
+    background: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}

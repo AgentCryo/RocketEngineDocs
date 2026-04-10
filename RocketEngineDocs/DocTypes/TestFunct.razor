@@ -1,0 +1,13 @@
+<div class="test-box">
+    <p>@Text1</p>
+
+    @if (!string.IsNullOrWhiteSpace(Text2))
+    {
+        <p>@Text2</p>
+    }
+</div>
+
+@code {
+    [Parameter] public string Text1 { get; set; } = string.Empty;
+    [Parameter] public string? Text2 { get; set; }
+}

@@ -1,0 +1,119 @@
+﻿@using RocketEngineDocs.Components
+<nav class="nav flex-column">
+    @foreach (var node in NavRegistry.Roots.ToArray())
+    {
+        <NavItem Node="node" />
+    }
+</nav>
+
+@code {
+    
+    public static class NavRegistry
+    {
+        public static event Action? OnChanged;
+        static Dictionary<string, NavItem.NavNode> NavItems { get; } = [];
+        public static List<NavItem.NavNode> Roots = [
+            new NavItem.NavNode()
+            {
+                DisplayName = "API",
+                URL = "/API"
+            }
+        ];
+
+        public static void RegisterDoc(DocBuilder doc)
+        {
+            RegisterPath(doc.DisplayName, doc.WebAddress, order: 100);
+
+            UpdateRoots();
+            OnChanged?.Invoke();
+        }
+        
+        public static void RegisterStatic(string displayName, string url, int order = 0)
+        {
+            RegisterPath(displayName, url, order);
+
+            UpdateRoots();
+            OnChanged?.Invoke();
+        }
+        
+        private static void UpdateRoots() =>
+            Roots = NavItems.Values
+                .Where(n => n.URL.Count(c => c == '/') == 1)
+                .OrderBy(n => n.Order)
+                .ThenBy(n => n.DisplayName)
+                .ToList();
+
+        private static NavItem.NavNode RegisterPath(string displayName, string url, int order)
+        {
+            var segments = url.Trim('/').Split('/', StringSplitOptions.RemoveEmptyEntries);
+
+            string currentPath = "";
+            NavItem.NavNode? lastFolder = null;
+
+            for (int i = 0; i < segments.Length - 1; i++)
+            {
+                currentPath += "/" + segments[i];
+
+                if (!NavItems.TryGetValue(currentPath, out var folderNode))
+                {
+                    folderNode = new NavItem.NavNode
+                    {
+                        DisplayName = segments[i],
+                        URL = currentPath,
+                        HasPage = false,
+                        Order = order
+                    };
+
+                    NavItems[currentPath] = folderNode;
+                    lastFolder?.Children.Add(folderNode);
+                }
+
+                lastFolder = folderNode;
+            }
+
+            string finalPath = "/" + string.Join("/", segments);
+
+            if (NavItems.TryGetValue(finalPath, out var existingNode)) {
+                existingNode.DisplayName = displayName;
+                existingNode.URL = url;
+                existingNode.HasPage = true;
+                existingNode.Order = order;
+
+                return existingNode;
+            } else {
+                var finalNode = new NavItem.NavNode
+                {
+                    DisplayName = displayName,
+                    URL = url,
+                    HasPage = true,
+                    Order = order
+                };
+
+                NavItems[finalPath] = finalNode;
+                lastFolder?.Children.Add(finalNode);
+
+                return finalNode;
+            }
+        }
+    }
+    
+    protected override void OnInitialized()
+    {
+        NavRegistry.OnChanged += HandleChange;
+        NavRegistry.RegisterStatic("API", "/API", order: -10);
+        NavRegistry.RegisterStatic("Guides", "/Guides", order: -9);
+        NavRegistry.RegisterStatic("GettingStarted", "/Guides/GettingStarted", order: -9);
+        NavRegistry.RegisterStatic("RCS", "/RCS", order: 10);
+        NavRegistry.RegisterStatic("RERL", "/RERL", order: 11);
+    }
+
+    void HandleChange()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        NavRegistry.OnChanged -= HandleChange;
+    }
+}

@@ -1,0 +1,90 @@
+@page "/RERL/RenderData"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RERL/RenderData")
+            .Title("RenderData")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RERL")
+            .Library("RERL")
+            .Paragraph("Contains core GPU‑side and CPU‑side data structures used by the rendering pipeline, including vertex layout, mesh data, packed materials, indirect draw commands, and clustered lighting structures.")
+            .Members(m => m
+
+                // === Vertex ===
+                .Struct("Vertex", "Represents a single vertex containing position, normal, UV coordinates, and tangent data.", s => {
+                    s.Add(new MembersBuilder.DataField("Vector3", "Position", "Vertex position in object space."));
+                    s.Add(new MembersBuilder.DataField("Vector3", "Normal", "Surface normal vector."));
+                    s.Add(new MembersBuilder.DataField("Vector2", "UV", "Texture coordinates."));
+                    s.Add(new MembersBuilder.DataField("Vector4", "Tangent", "Tangent vector (xyz) and handedness (w)."));
+                })
+
+                // === Mesh ===
+                .Struct("Mesh", "Represents a mesh consisting of vertices and indices.", s => {
+                    s.Add(new MembersBuilder.DataField("Vertex[]", "Vertices", "Array of vertex data."));
+                    s.Add(new MembersBuilder.DataField("uint[]", "Indices", "Triangle index buffer."));
+                    s.Add(new MembersBuilder.DataField("int", "MaterialIndex", "Index of the material used by this mesh."));
+                })
+
+                // === GPUMaterial ===
+                .Struct("GPUMaterial", "Packed material data uploaded to the GPU.", s => {
+                    s.Add(new MembersBuilder.DataField("Vector4", "BaseColor", "Base albedo color (RGB) and alpha."));
+                    s.Add(new MembersBuilder.DataField("uint", "AlbedoHandleLo", "Lower 32 bits of the bindless texture handle."));
+                    s.Add(new MembersBuilder.DataField("uint", "AlbedoHandleHi", "Upper 32 bits of the bindless texture handle."));
+                    s.Add(new MembersBuilder.DataField("Vector2", "Padding", "Padding for std140 alignment."));
+                })
+
+                // === ToGpu ===
+                .Method("GPUMaterial", "ToGpu(Material mat)", "Converts a CPU‑side material into a GPU‑ready packed material struct.", mb => mb
+                    .Parameter("mat:", "The material to convert.")
+                )
+
+                // === DrawElementsIndirectCommand ===
+                .Struct("DrawElementsIndirectCommand", "Represents an OpenGL indirect draw command used for multi‑draw rendering.", s => {
+                    s.Add(new MembersBuilder.DataField("uint", "Count", "Number of indices to draw."));
+                    s.Add(new MembersBuilder.DataField("uint", "InstanceCount", "Number of instances to draw."));
+                    s.Add(new MembersBuilder.DataField("uint", "FirstIndex", "Index of the first index to draw."));
+                    s.Add(new MembersBuilder.DataField("uint", "BaseVertex", "Base vertex offset."));
+                    s.Add(new MembersBuilder.DataField("uint", "BaseInstance", "Instance ID offset."));
+                })
+
+                // === Cluster ===
+                .Struct("Cluster", "Represents a clustered‑lighting volume containing bounds and light indices.", s => {
+                    s.Add(new MembersBuilder.DataField("Vector3", "minPoint", "Minimum point of the cluster AABB."));
+                    s.Add(new MembersBuilder.DataField("uint", "_pad0", "Padding for alignment."));
+                    s.Add(new MembersBuilder.DataField("Vector3", "maxPoint", "Maximum point of the cluster AABB."));
+                    s.Add(new MembersBuilder.DataField("uint", "_pad1", "Padding for alignment."));
+                    s.Add(new MembersBuilder.DataField("uint[]", "LightIndices", "Indices of lights affecting this cluster."));
+                })
+
+                // === Light ===
+                .Struct("Light", "Represents a GPU‑side light with packed metadata, color, intensity, position, radius, direction, and angle.", s => {
+                    s.Add(new MembersBuilder.DataField("uint", "Data", "Packed light metadata (type, flags, etc.)."));
+                    s.Add(new MembersBuilder.DataField("uint", "_pad0", "Padding for alignment."));
+                    s.Add(new MembersBuilder.DataField("uint", "_pad1", "Padding for alignment."));
+                    s.Add(new MembersBuilder.DataField("uint", "_pad2", "Padding for alignment."));
+                    s.Add(new MembersBuilder.DataField("Vector3", "Color", "Light color."));
+                    s.Add(new MembersBuilder.DataField("float", "Intensity", "Light intensity."));
+                    s.Add(new MembersBuilder.DataField("Vector3", "Position", "Light position in world space."));
+                    s.Add(new MembersBuilder.DataField("float", "Radius", "Light radius for point/spot lights."));
+                    s.Add(new MembersBuilder.DataField("Vector3", "Direction", "Light direction for spot/directional lights."));
+                    s.Add(new MembersBuilder.DataField("float", "Angle", "Spotlight angle in radians."));
+                })
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

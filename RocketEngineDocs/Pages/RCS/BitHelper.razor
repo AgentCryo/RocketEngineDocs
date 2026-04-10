@@ -1,0 +1,140 @@
+@page "/RCS/BitHelper"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RCS/BitHelper")
+            .Title("BitHelper")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RCS")
+            .Library("RCS")
+            .Paragraph("Provides utility functions for manipulating individual bits and bitfields within unsigned integer values. Supports both return‑based and ref‑based operations for writing, reading, toggling, and extracting bits.")
+            .Members(m => m
+
+                // === Methods ===
+
+                .Method("uint", "WriteBit(uint value, int bitIndex, bool bitValue)", "Writes a single bit to 0 or 1.", mb => mb
+                    .Parameter("value:", "The original value.")
+                    .Parameter("bitIndex:", "The index of the bit to modify.")
+                    .Parameter("bitValue:", "The bit value to write (true = 1, false = 0).")
+                )
+
+                .Method("uint", "SetBit(uint value, int bitIndex)", "Sets a bit to 1.", mb => mb
+                    .Parameter("value:", "The original value.")
+                    .Parameter("bitIndex:", "The index of the bit to set.")
+                )
+
+                .Method("uint", "ClearBit(uint value, int bitIndex)", "Clears a bit to 0.", mb => mb
+                    .Parameter("value:", "The original value.")
+                    .Parameter("bitIndex:", "The index of the bit to clear.")
+                )
+
+                .Method("uint", "ToggleBit(uint value, int bitIndex)", "Toggles (flips) a bit.", mb => mb
+                    .Parameter("value:", "The original value.")
+                    .Parameter("bitIndex:", "The index of the bit to toggle.")
+                )
+
+                .Method("bool", "IsBitSet(uint value, int bitIndex)", "Checks whether a bit is set (1).", mb => mb
+                    .Parameter("value:", "The value to check.")
+                    .Parameter("bitIndex:", "The index of the bit to test.")
+                )
+
+                .Method("uint", "ReadBit(uint value, int bitIndex)", "Extracts a bit as 0 or 1.", mb => mb
+                    .Parameter("value:", "The value to read from.")
+                    .Parameter("bitIndex:", "The index of the bit to extract.")
+                )
+
+                .Method("uint", "WriteBits(uint value, int offset, int count, uint fieldValue)", "Writes a range of bits (bitfield) into a value.", mb => mb
+                    .Parameter("value:", "The original value.")
+                    .Parameter("offset:", "The starting bit position.")
+                    .Parameter("count:", "The number of bits to write.")
+                    .Parameter("fieldValue:", "The bitfield value to insert.")
+                )
+
+                .Method("uint", "ReadBits(uint value, int offset, int count)", "Reads a range of bits (bitfield).", mb => mb
+                    .Parameter("value:", "The value to read from.")
+                    .Parameter("offset:", "The starting bit position.")
+                    .Parameter("count:", "The number of bits to read.")
+                )
+
+                // === Ref-based overloads ===
+
+                .Method("void", "WriteBit(ref uint value, int bitIndex, bool bitValue)", "Writes a single bit to 0 or 1 using a ref parameter.", mb => mb
+                    .Parameter("value:", "The value to modify (passed by reference).")
+                    .Parameter("bitIndex:", "The index of the bit to modify.")
+                    .Parameter("bitValue:", "The bit value to write.")
+                )
+
+                .Method("void", "SetBit(ref uint value, int bitIndex)", "Sets a bit to 1 using a ref parameter.", mb => mb
+                    .Parameter("value:", "The value to modify (passed by reference).")
+                    .Parameter("bitIndex:", "The index of the bit to set.")
+                )
+
+                .Method("void", "ClearBit(ref uint value, int bitIndex)", "Clears a bit to 0 using a ref parameter.", mb => mb
+                    .Parameter("value:", "The value to modify (passed by reference).")
+                    .Parameter("bitIndex:", "The index of the bit to clear.")
+                )
+
+                .Method("void", "ToggleBit(ref uint value, int bitIndex)", "Toggles (flips) a bit using a ref parameter.", mb => mb
+                    .Parameter("value:", "The value to modify (passed by reference).")
+                    .Parameter("bitIndex:", "The index of the bit to toggle.")
+                )
+
+                .Method("void", "ReadBit(ref uint value, int bitIndex)", "Extracts a bit as 0 or 1 using a ref parameter.", mb => mb
+                    .Parameter("value:", "The value to read from (passed by reference).")
+                    .Parameter("bitIndex:", "The index of the bit to extract.")
+                )
+
+                .Method("void", "WriteBits(ref uint value, int offset, int count, uint fieldValue)", "Writes a range of bits (bitfield) using a ref parameter.", mb => mb
+                    .Parameter("value:", "The value to modify (passed by reference).")
+                    .Parameter("offset:", "The starting bit position.")
+                    .Parameter("count:", "The number of bits to write.")
+                    .Parameter("fieldValue:", "The bitfield value to insert.")
+                )
+
+                .Method("void", "ReadBits(ref uint value, int offset, int count)", "Reads a range of bits (bitfield) using a ref parameter.", mb => mb
+                    .Parameter("value:", "The value to read from (passed by reference).")
+                    .Parameter("offset:", "The starting bit position.")
+                    .Parameter("count:", "The number of bits to read.")
+                )
+            )
+
+            // === Example Section ===
+            .Section("Example Usage:", s => s
+                .CodeBlock(
+@"using RCS;
+
+uint value = 0b_0000_0001;
+
+// Set bit 3
+value = BitHelper.SetBit(value, 3); // 0000 1001
+
+// Clear bit 0
+value = BitHelper.ClearBit(value, 0); // 0000 1000
+
+// Toggle bit 1
+value = BitHelper.ToggleBit(value, 1); // 0000 1010
+
+// Read bit 3
+uint bit = BitHelper.ReadBit(value, 3); // 1
+
+// Ref-based modification
+BitHelper.SetBit(ref value, 2); // 0000 1110")
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

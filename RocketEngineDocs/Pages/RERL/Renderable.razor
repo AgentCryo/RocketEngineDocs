@@ -1,0 +1,39 @@
+@page "/RERL/Renderable"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RERL/Renderable")
+            .Title("Renderable")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RERL")
+            .Library("RERL")
+            .Paragraph("Defines the base interface for all renderable components in RERL. Implementations such as MeshRenderer and ModelRenderer use this interface to integrate with the RenderPipeline.")
+            .Paragraph("Renderable components must be attached to an RCS Entity, and they rely on the entity’s Transform for world‑space positioning.")
+            .Members(m => m
+
+                .Method("void", "RebuildMaterialSSBO()", "Rebuilds the material shader storage buffer object (SSBO) for this renderable.")
+
+                .Method("void", "Render(int instanceCount)", "Renders the object using the currently bound shader.", mb => mb
+                    .Parameter("instanceCount:", "Number of instances to draw.")
+                )
+
+                .Method("Shader?", "GetShader()", "Gets the shader used by this renderable.")
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

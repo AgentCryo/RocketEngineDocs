@@ -1,0 +1,44 @@
+@page "/RERL/RenderPipeline/ClusterManager"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RERL/RenderPipeline/ClusterManager")
+            .Title("ClusterManager")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RERL")
+            .Library("RERL")
+            .Paragraph("Manages clustered lighting grid generation, cluster buffer allocation, and compute shader dispatch for cluster building and lighting. This system is internal to the RenderPipeline and automatically updated when the camera or window changes.")
+            .Members(m => m
+
+                .Field("bool", "Initialized", "Whether the cluster manager has been initialized.")
+
+                .Field("Vector3i", "GridSize", "The size of the clustered lighting grid.")
+
+                .Field("int", "ClusterCount", "Total number of clusters in the grid.")
+
+                .Method("void", "SetGridSize(Vector3i size)", "Sets the cluster grid size and reallocates buffers.", mb => mb
+                    .Parameter("size:", "The new grid size.")
+                )
+
+                .Method("void", "UpdateShaderUniforms()", "Updates compute shader uniforms for cluster building and lighting.")
+
+                .Method("void", "AllocateClusterBuffer()", "Allocates GPU memory for cluster data.")
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

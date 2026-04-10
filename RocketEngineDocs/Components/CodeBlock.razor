@@ -1,0 +1,74 @@
+@using Microsoft.AspNetCore.Components.Rendering
+@using Microsoft.AspNetCore.Components.RenderTree
+@inject IJSRuntime JS
+
+<div class="code-container">
+    <button class="copy-btn" @onclick="Copy">@_copyLabel</button>
+
+    <pre><code class="@($"language-{Language}")">@((MarkupString)_cleaned)</code></pre>
+</div>
+
+@code {
+    [Parameter] public string Language { get; set; } = "csharp";
+
+    // Lambda-based code input
+    [Parameter] public Func<object?, string>? Code { get; set; }
+
+    // Child content fallback
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private string _cleaned = "";
+    private string _copyLabel = "Copy";
+
+    protected override void OnParametersSet()
+    {
+        // CASE 1: Lambda-based code
+        if (Code != null)
+        {
+            var raw = Code(null);
+            _cleaned = System.Net.WebUtility.HtmlEncode(raw);
+            return;
+        }
+
+        // CASE 2: ChildContent-based code
+        if (ChildContent != null)
+        {
+            var sb = new System.Text.StringBuilder();
+            var builder = new RenderTreeBuilder();
+            ChildContent(builder);
+
+            var frames = builder.GetFrames();
+
+            for (int i = 0; i < frames.Count; i++)
+            {
+                var frame = frames.Array[i];
+
+                if (frame.FrameType == RenderTreeFrameType.Text)
+                    sb.Append(frame.TextContent);
+
+                if (frame.FrameType == RenderTreeFrameType.Markup)
+                    sb.Append(frame.MarkupContent);
+            }
+
+            var raw = sb.ToString().TrimStart('\n', '\r');
+            _cleaned = System.Net.WebUtility.HtmlEncode(raw);
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JS.InvokeVoidAsync("highlightCode");
+    }
+
+    private async Task Copy()
+    {
+        await JS.InvokeVoidAsync("navigator.clipboard.writeText", _cleaned);
+
+        _copyLabel = "Copied!";
+        StateHasChanged();
+
+        await Task.Delay(1200);
+        _copyLabel = "Copy";
+        StateHasChanged();
+    }
+}

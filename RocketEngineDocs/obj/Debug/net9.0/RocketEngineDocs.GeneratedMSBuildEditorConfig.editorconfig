@@ -1,0 +1,205 @@
+is_global = true
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.TargetFramework = net9.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = RocketEngineDocs
+build_property.RootNamespace = RocketEngineDocs
+build_property.ProjectDir = C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = false
+build_property.RazorLangVersion = 9.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Builders/HighlightLoader.razor]
+build_metadata.AdditionalFiles.TargetPath = QnVpbGRlcnNcSGlnaGxpZ2h0TG9hZGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Components/DevlogHeaderComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEZXZsb2dIZWFkZXJDb21wb25lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Components/DevlogImage.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEZXZsb2dJbWFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Components/LibraryBadge.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMaWJyYXJ5QmFkZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/DocTypes/TestFunct.razor]
+build_metadata.AdditionalFiles.TargetPath = RG9jVHlwZXNcVGVzdEZ1bmN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/API.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQVBJLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/Devlogs/Releases/V0_1_RCS_RERL.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGV2bG9nc1xSZWxlYXNlc1xWMF8xX1JDU19SRVJMLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/Devlogs/Releases/V0_2_RCS_RERL.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGV2bG9nc1xSZWxlYXNlc1xWMF8yX1JDU19SRVJMLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/Guides/GettingStarted.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR3VpZGVzXEdldHRpbmdTdGFydGVkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/Guides/Guides.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR3VpZGVzXEd1aWRlcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RCS/BitHelper.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkNTXEJpdEhlbHBlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RCS/Components/IComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkNTXENvbXBvbmVudHNcSUNvbXBvbmVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RCS/Components/Transform.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkNTXENvbXBvbmVudHNcVHJhbnNmb3JtLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RCS/Entity.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkNTXEVudGl0eS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RCS/Logger.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkNTXExvZ2dlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RCS/RCS.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkNTXFJDUy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RCS/RCS_Core.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkNTXFJDU19Db3JlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RCS/Scene.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkNTXFNjZW5lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/Camera.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxDYW1lcmEucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/ClusterManager.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxDbHVzdGVyTWFuYWdlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/Components/CameraComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxDb21wb25lbnRzXENhbWVyYUNvbXBvbmVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/Components/LightBuilder.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxDb21wb25lbnRzXExpZ2h0QnVpbGRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/Components/LightComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxDb21wb25lbnRzXExpZ2h0Q29tcG9uZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/Components/MeshRender.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxDb21wb25lbnRzXE1lc2hSZW5kZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/Components/ModelRenderer.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxDb21wb25lbnRzXE1vZGVsUmVuZGVyZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/GBuffer.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxHQnVmZmVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/LightManager.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxMaWdodE1hbmFnZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/Loaders/ImageLoader.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxMb2FkZXJzXEltYWdlTG9hZGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/Loaders/MaterialLoader.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxMb2FkZXJzXE1hdGVyaWFsTG9hZGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/Loaders/ModelLoader.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxMb2FkZXJzXE1vZGVsTG9hZGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/Renderable.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxSZW5kZXJhYmxlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/RenderData.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxSZW5kZXJEYXRhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/RenderPipeline.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxSZW5kZXJQaXBlbGluZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/RERL.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxSRVJMLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/RERL_Core.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxSRVJMX0NvcmUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/ShaderTypes/Compute.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxTaGFkZXJUeXBlc1xDb21wdXRlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/ShaderTypes/PostProcess.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxTaGFkZXJUeXBlc1xQb3N0UHJvY2Vzcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RERL/ShaderTypes/Shader.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUkVSTFxTaGFkZXJUeXBlc1xTaGFkZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Pages/RocketEngineDocsHome.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUm9ja2V0RW5naW5lRG9jc0hvbWUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Components/CodeBlock.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb2RlQmxvY2sucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-rcft8b4a5i
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Components/NavItem.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xOYXZJdGVtLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-69slgxn6og
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-hbdtw3h4kj
+
+[C:/Users/Colton/RiderProjects/RocketEngineDocs/RocketEngineDocs/Layout/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-cxmbetej06

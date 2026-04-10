@@ -1,0 +1,46 @@
+<div class="nav-item" style="margin-left: 1rem">
+    <div class="nav-parent">
+        @if (!string.IsNullOrEmpty(Node.URL) && Node.HasPage)
+        {
+            <a class="re-link" href="@Node.URL">@Node.DisplayName</a>
+        }
+        else
+        {
+            <span>@Node.DisplayName</span>
+        }
+
+        @if (Node.Children.Any())
+        {
+            <button class="dropdown-toggle" style="color:#a0aab4" @onclick="Toggle">
+                @(IsOpen ? "▼" : "▶")
+            </button>
+        }
+    </div>
+
+    @if (IsOpen && Node.Children.Any())
+    {
+        <div class="nav-sub">
+            @foreach (var node in Node.Children)
+            {
+                <NavItem Node="node" />
+            }
+        </div>
+    }
+</div>
+
+
+@code {
+    [Parameter] public NavNode Node { get; set; }
+    public bool IsOpen = false;
+    
+    void Toggle() => IsOpen = !IsOpen;
+    
+    public class NavNode
+    {
+        public string DisplayName { get; set; }
+        public string URL { get; set; }
+        public bool HasPage { get; set; } = false;
+        public int Order { get; set; } = 0;
+        public List<NavNode> Children { get; set; } = new();
+    }
+}

@@ -1,0 +1,105 @@
+@page "/RERL/ShaderTypes/Shader"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RERL/ShaderTypes/Shader")
+            .Title("Shader")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RERL.ShaderTypes")
+            .Library("RERL")
+            .Paragraph("Represents an OpenGL shader program, supporting compilation, linking, uniform uploads, and automatic uniforms. Used throughout the rendering pipeline for geometry, pre‑lighting, and post‑processing passes.")
+            .Paragraph("Note: Both manual uniforms and auto‑uniforms must be reapplied every time the shader is used. Auto‑uniforms are convenience bindings that update automatically each frame, while manual uniforms must be set explicitly before rendering.")
+            .Members(m => m
+
+                // === Enum ===
+                .Enum("ShaderType", "Defines the shader category used during compilation.", e => {
+                    e.Add(new MembersBuilder.DataField("Shader", "Shader", "Standard geometry shader."));
+                    e.Add(new MembersBuilder.DataField("Prelight", "Prelight", "Pre‑lighting shader."));
+                    e.Add(new MembersBuilder.DataField("PostProcess", "PostProcess", "Post‑processing shader (must use PostProcess class)."));
+                    e.Add(new MembersBuilder.DataField("Compute", "Compute", "Compute shader (must use ComputeShader class)."));
+                })
+
+                // === Constants ===
+                .Field("string", "DefaultVert", "Path to the default vertex shader.")
+                .Field("string", "DefaultFrag", "Path to the default fragment shader.")
+                .Field("string", "DefaultPostProcessVert", "Path to the default post‑process vertex shader.")
+
+                // === Methods ===
+                .Method("void", "Use()", "Binds this shader program for rendering.")
+
+                .Method("int", "GetHandle()", "Gets the OpenGL program handle for this shader.")
+
+                .Method("Shader", "AttachGraphicsShader(string vertexPath, string fragmentPath, ShaderType shaderType)",
+                    "Loads, compiles, and links a vertex and fragment shader into this shader.", mb => mb
+                        .Parameter("vertexPath:", "Path to the vertex shader source file.")
+                        .Parameter("fragmentPath:", "Path to the fragment shader source file.")
+                        .Parameter("shaderType:", "Determines which helper GLSL includes are injected.")
+                        .Exception("Thrown if shader compilation or linking fails.")
+                )
+
+                .Method("bool", "ApplyUniform(string name, object? value, bool transposeMatrix, bool silence)",
+                    "Assigns a value to a uniform variable in the shader program. Manual uniforms must be reapplied every time the shader is used.", mb => mb
+                        .Parameter("name:", "The uniform name in the GLSL shader.")
+                        .Parameter("value:", "The value to upload to the GPU.")
+                        .Parameter("transposeMatrix:", "Whether matrices should be transposed before upload.")
+                        .Parameter("silence:", "If true, missing uniforms are ignored.")
+                        .Exception("Thrown if the uniform does not exist and silence is false.")
+                )
+
+                .Method("bool", "RegisterAutoUniform(string name, Func<object?> getter, bool silence)",
+                    "Registers a uniform whose value is automatically applied each frame. Recommended over manual ApplyUniform calls.", mb => mb
+                        .Parameter("name:", "The uniform name in the GLSL shader.")
+                        .Parameter("getter:", "Function returning the uniform value.")
+                        .Parameter("silence:", "If true, missing uniforms are ignored.")
+                        .Exception("Thrown if the uniform does not exist and silence is false.")
+                )
+
+                .Method("void", "ApplyAutoUniforms()", "Applies all automatically registered uniforms.")
+            )
+
+            // === Example Section ===
+            .Section("Example Usage", s => s
+                .CodeBlock(
+@"using RERL.ShaderTypes;
+
+// Create shader
+var shader = new Shader();
+
+// Attach vertex + fragment shaders
+shader.AttachGraphicsShader(
+    ""Path/To/VertexShader.glsl"",
+    ""Path/To/FragShader.glsl"",
+    Shader.ShaderType.Shader
+);
+
+// Bind shader
+shader.Use();
+
+// Upload uniforms
+shader.ApplyUniform(""u_Time"", 1.25f);
+shader.ApplyUniform(""u_Color"", new Vector3(1, 0, 0));
+
+// Register auto-uniform
+shader.RegisterAutoUniform(""u_Frame"", () => Engine.FrameCount);
+
+// Apply auto uniforms each frame
+shader.ApplyAutoUniforms();")
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

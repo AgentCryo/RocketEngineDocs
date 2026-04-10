@@ -1,0 +1,13 @@
+<div class="devlog-image-wrapper">
+    <img src="@Src" alt="@Alt" />
+    @if (!string.IsNullOrWhiteSpace(Caption))
+    {
+        <p class="devlog-image-caption">@Caption</p>
+    }
+</div>
+
+@code {
+    [Parameter] public string Src { get; set; } = "";
+    [Parameter] public string Alt { get; set; } = "";
+    [Parameter] public string Caption { get; set; } = "";
+}

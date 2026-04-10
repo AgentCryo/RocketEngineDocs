@@ -1,0 +1,62 @@
+@page "/"
+@using RocketEngineDocs.Components
+
+<div class="docs-home">
+
+    <h1>RocketEngine Documentation</h1>
+    <p class="lead">
+        Welcome to the official documentation for RocketEngine a modular engine framework. This includes guides, API references, and examples.
+    </p>
+
+    <div class="home-section">
+        <h2>Start Here</h2>
+
+        <a class="home-card" href="Guides/GettingStarted">
+            <h3>Getting Started</h3>
+            <p>Install RocketEngine, set up your first project, and run your first module.</p>
+        </a>
+    </div>
+
+    <div class="home-section">
+        <h2>Documentation</h2>
+
+        <div class="home-grid">
+
+            <a class="home-card" href="Guides">
+                <h3>Guides</h3>
+                <p>Hands‑on guides for getting started, building components, and creating basic pre‑light and post‑process shaders.</p>
+            </a>
+
+            <a class="home-card" href="API">
+                <h3>API Reference</h3>
+                <p>Detailed API documentation for all currently documented rocket engine libraries.</p>
+            </a>
+
+            <a class="home-card" href="Examples">
+                <h3>Examples</h3>
+                <p>Practical examples and real‑world usage patterns.</p>
+            </a>
+
+        </div>
+    </div>
+    
+    <div class="home-section">
+        <h2>Latest Updates</h2>
+
+        <div class="home-grid">
+            @foreach (var log in DevlogRegistry.Devlogs.Take(3))
+            {
+                <a class="home-card" href="@log.Url">
+                    <h3>@log.Version | @log.Title</h3>
+                    <div>
+                        <span class="devlog-date">@log.Date.ToString("MM/dd/yy")</span>
+                        @foreach (var library in log.Libraries) {
+                            <LibraryBadge Name="@library"/>
+                        }
+                    </div>
+                    <p>@log.Summary</p>
+                </a>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,140 @@
+@page "/Devlogs/v0_1_RCS_RERL"
+@using RocketEngineDocs.Components
+@inherits RocketEngineDocs.Components.DevlogBase
+
+@code {
+
+    public override DevlogHeader Header => new()
+    {
+        Title = "RCS & RERL",
+        Version = "v0.1",
+        Summary = "Initial release with basic engine structure.",
+        Url = "/Devlogs/v0_1_RCS_RERL",
+        Order = 1,
+        Date = new DateTime(2026, 3, 20),
+        IsWip = false,
+        Libraries = ["RCS", "RERL"]
+    };
+}
+
+<DevlogHeaderComponent Meta="Header" />
+
+<p>
+    Version v0.1 marks the first functional milestone for Rocket Engine. This release helps create the
+    base systems that all future versions will build upon, including the initial ECS core and
+    the standalone rendering library. While intentionally minimal, v0.1 transitions Rocket Engine from
+    early prototypes like (<a href="https://github.com/AgentCryo/OpenTK-Lighting" class="re-link">OpenTK Lighting</a>) into a nice, extensible engine structure.
+</p>
+
+<DevlogImage Src="Images/v0.1/scene.png"
+             Alt="Scene"
+             Caption="Example of a scene in v0.1 | The transparency seen is just pseudo transparency." />
+
+<h2>Overview</h2>
+
+<p>
+    The goal of v0.1 was to create a stable frame to build upon. This includes defining the Entity Component
+    System (RCS), creating a sudo rendering pipeline (RERL), which will be less sudo in v0.2, and making sure both systems can interact nicely.
+    These features form the backbone of Rocket Engine’s design philosophy: modular and easy to extend.
+</p>
+
+<ul>
+    <li>Core ECS structure through RCS.</li>
+    <li>Initial rendering pipeline through RERL.</li>
+    <li>Scene and entity management.</li>
+    <li>Camera integration between ECS and rendering.</li>
+</ul>
+
+<div class="devlog-box">
+
+    <h2 class="lib-heading lib-rcs">RCS | Rocket Control System v0.1</h2>
+
+    <p>
+        RCS is Rocket Engine’s custom Entity Component System and acts as the engine core. The v0.1 release
+        only allows basic ECS management.
+    </p>
+
+    <h3>Completed in v0.1</h3>
+
+    <ul>
+        <li>
+            <strong>Component Interface</strong><br />
+            A unified interface for all components, defining how they function.
+        </li>
+
+        <li>
+            <strong>Entity with Component Handling</strong><br />
+            Entities can add, remove, and retrieve components. This enables behavior composition through small,
+            reusable pieces rather than large monolithic classes. Similar to unity's mono-behavior.
+        </li>
+
+        <li>
+            <strong>Scene with Entity Handling</strong><br />
+            Scenes act as containers for entities, providing runtime management.
+        </li>
+    </ul>
+
+    <p>
+        These systems form the structural core of Rocket Engine. Future features such as logging, physics, networking, and advanced rendering will all plug into this ECS rather than being hard‑wired.
+    </p>
+
+</div>
+
+<div class="devlog-box">
+
+    <h2 class="lib-heading lib-rerl">RERL | Rocket Engine Rendering Library v0.1</h2>
+
+    <p>
+        RERL is a standalone rendering library made for Rocket Engine. The v0.1 release
+        focuses on getting the foundations for a reliable rendering pipeline with basic asset loading and ECS integration.
+    </p>
+
+    <h3>Completed in v0.1</h3>
+
+    <ul>
+        <li>
+            <strong>Core Mesh Loading (OBJ)</strong><br />
+            Basic OBJ geometry loading is supported, allowing simple models to be imported and rendered.
+        </li>
+
+        <li>
+            <strong>Shader Loading (GLSL)</strong><br />
+            GLSL shaders can be loaded, compiled, and linked with error reporting.
+        </li>
+
+        <li>
+            <strong>Basic Post‑Processing Pipeline</strong><br />
+            A simple but extensible pipeline for future effects and rendering passes.
+        </li>
+
+        <li>
+            <strong>Batched Mesh Rendering</strong><br />
+            Meshes are grouped by shader to reduce GPU state changes and improve performance.
+        </li>
+
+        <li>
+            <strong>RCS‑Integrated Camera Component</strong><br />
+            The first example of RCS and RERL working together. Scenes now define camera entities that
+            directly influence rendering.
+        </li>
+
+        <li>
+            <strong>XML Documentation for Public API Members</strong><br />
+            Early documentation to make the library easier to understand and extend.
+        </li>
+    </ul>
+
+    <p>
+        These features provide the first visual output for Rocket Engine: simple scenes, basic shading, and a
+        sudo rendering pipeline ready for expansion in future versions.
+    </p>
+
+</div>
+
+<h2>Closing Thoughts</h2>
+
+<p>
+    v0.1 is intentionally small, but it establishes the core identity of Rocket Engine. The architecture is
+    modular, ECS‑driven, rendering‑focused, and documented from the start. Future releases will build on this
+    foundation with logging, GLTF support, materials, lighting, and more advanced rendering techniques like cluster shading.
+</p>

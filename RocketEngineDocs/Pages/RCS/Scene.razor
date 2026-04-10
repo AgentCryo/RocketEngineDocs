@@ -1,0 +1,100 @@
+@page "/RCS/RCS_Core/Scene"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RCS/RCS_Core/Scene")
+            .Title("Scene")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RCS")
+            .Library("RCS")
+            .Paragraph("Represents a scene containing entities and providing update/load behavior. Scenes act as containers for entities and are responsible for loading, updating, and managing them.")
+            .Members(m => m
+
+                // === Fields ===
+                // None, since there are no public fields. I will not document public fields.
+                
+                // === Constructor ===
+                .Method("Scene", "Scene(string name)", "Creates a new scene with the given name.", mb => mb
+                    .Parameter("name:", "The name of the scene.")
+                )
+
+                // === Methods ===
+                .Method("string", "GetName()", "Gets the name of the scene.")
+
+                .Method("Scene", "AddEntity(Entity entity)", "Adds an entity to the scene.", mb => mb
+                    .Parameter("entity:", "The entity to add.")
+                    .Exception("Thrown if an entity with the same name already exists.")
+                )
+
+                .Method("void", "RemoveEntity(Entity entity)", "Removes an entity from the scene.", mb => mb
+                    .Parameter("entity:", "The entity to remove.")
+                    .Exception("Thrown if the entity does not exist.")
+                )
+
+                .Method("void", "RemoveEntity(string name)", "Removes an entity from the scene by name.", mb => mb
+                    .Parameter("name:", "The name of the entity to remove.")
+                    .Exception("Thrown if the entity does not exist.")
+                )
+
+                .Method("void", "RemoveAllEntities()", "Removes all entities from the scene.")
+
+                .Method("void", "GetEntity(string name, out Entity entity)", "Attempts to retrieve an entity by name.", mb => mb
+                    .Parameter("name:", "The name of the entity.")
+                    .Parameter("entity:", "The retrieved entity, passed as an out parameter.")
+                    .Exception("Thrown if the entity does not exist.")
+                )
+
+                .Method("Entity", "GetEntity(string name)", "Retrieves an entity by name.", mb => mb
+                    .Parameter("name:", "The name of the entity.")
+                    .Exception("Thrown if the entity does not exist.")
+                )
+
+                .Method("T", "GetComponentFromEntity<T>(string name)", "Retrieves a component of type T from an entity.", mb => mb
+                    .Parameter("name:", "The name of the entity.")
+                )
+
+                .Method("void", "Load()", "Calls Load() on all entities in the scene.")
+
+                .Method("void", "Update(double deltaTime)", "Updates all entities in the scene.", mb => mb
+                    .Parameter("deltaTime:", "Time elapsed since the last update.")
+                )
+            )
+
+            // === Example Section ===
+            .Section("Example Usage", s => s
+                .CodeBlock(
+@"using RCS;
+
+var scene = new Scene(""GameScene"");
+
+// Add entities
+scene.AddEntity(new Entity(""Player""));
+scene.AddEntity(new Entity(""Enemy""));
+
+// Load scene
+scene.Load();
+
+// Update loop
+while (running)
+{
+    scene.Update(deltaTime);
+}")
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

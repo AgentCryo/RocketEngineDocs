@@ -1,0 +1,6 @@
+/* === NAV === */
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.5rem;
+}

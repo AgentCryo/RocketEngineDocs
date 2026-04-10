@@ -1,0 +1,151 @@
+@page "/RERL/Components/LightComponent"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RERL/Components/LightComponent")
+            .Title("LightComponent")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RERL.Components")
+            .Library("RERL")
+            .Paragraph("Represents a light in the scene, including type, color, intensity, radius, direction, and configuration flags. Lights can be global or clustered and may follow a Transform via listeners.")
+            .Members(m => m
+
+                // === Enums ===
+                .Enum("LightConfig", "Configuration flags for light behavior.", e => {
+                    e.Add(new MembersBuilder.DataField("SmoothEdgeClamping", "SmoothEdgeClamping", "Enables smooth edge clamping for the light."));
+                })
+
+                .Enum("LightType", "Defines the type of light.", e => {
+                    e.Add(new MembersBuilder.DataField("Point", "Point", "Point light emitting in all directions."));
+                    e.Add(new MembersBuilder.DataField("Spot", "Spot", "Spot light with a cone angle."));
+                    e.Add(new MembersBuilder.DataField("Directional", "Directional", "Directional light with infinite distance."));
+                })
+
+                // === Constructor ===
+                .Method("LightComponent", "LightComponent(LightType type)", "Creates a new light component with the given type.", mb => mb
+                    .Parameter("type:", "The type of light (Point, Spot, Directional).")
+                )
+
+                // === Fields / Properties ===
+                .Field("Entity", "Owner", "The owning entity of this light component.")
+                .Field("bool", "AutoRegister", "If true, the light is automatically registered with the RenderPipeline when added.")
+                .Field("RenderData.Light", "LightData", "The underlying light data used by the renderer.")
+                .Field("LightType", "LightType", "The type of this light (stored in LightData.Data bitfield).")
+
+                // === Static Create Helpers ===
+                .Method("LightComponent", "CreatePoint(float radius, float intensity, Vector3 color, bool global)", 
+                    "Creates a point light with the given radius, intensity, and color.", mb => mb
+                        .Parameter("radius:", "The light radius.")
+                        .Parameter("intensity:", "The light intensity.")
+                        .Parameter("color:", "The light color.")
+                        .Parameter("global:", "Whether the light is global (non‑clustered).")
+                )
+
+                .Method("LightComponent", "CreateSpot(float radius, float angleDeg, float intensity, Vector3 color, Vector2 directionDeg, bool global)", 
+                    "Creates a spot light with radius, angle (degrees), intensity, color, and direction (degrees).", mb => mb
+                        .Parameter("radius:", "The light radius.")
+                        .Parameter("angleDeg:", "The cone angle in degrees.")
+                        .Parameter("intensity:", "The light intensity.")
+                        .Parameter("color:", "The light color.")
+                        .Parameter("directionDeg:", "The light direction in Euler degrees (pitch, yaw).")
+                        .Parameter("global:", "Whether the light is global (non‑clustered).")
+                )
+
+                .Method("LightComponent", "CreateDirectional(Vector2 directionDeg, float intensity, Vector3 color, bool global)", 
+                    "Creates a directional light with direction (degrees), intensity, and color.", mb => mb
+                        .Parameter("directionDeg:", "The light direction in Euler degrees (pitch, yaw).")
+                        .Parameter("intensity:", "The light intensity.")
+                        .Parameter("color:", "The light color.")
+                        .Parameter("global:", "Whether the light is global (non‑clustered).")
+                )
+
+                // === Setters ===
+                .Method("LightComponent", "SetAutoRegister(bool autoRegister)", "Sets whether the light should auto‑register with the RenderPipeline when added.", mb => mb
+                    .Parameter("autoRegister:", "True to auto‑register, false to require manual registration.")
+                )
+
+                .Method("LightComponent", "SetColor(Vector3 color)", "Sets the light color.", mb => mb
+                    .Parameter("color:", "The new light color.")
+                )
+
+                .Method("LightComponent", "SetIntensity(float value)", "Sets the light intensity.", mb => mb
+                    .Parameter("value:", "The new intensity value.")
+                )
+
+                .Method("LightComponent", "SetPosition(Vector3 position)", "Sets the light position.", mb => mb
+                    .Parameter("position:", "The new light position.")
+                )
+
+                .Method("LightComponent", "SetGlobal(bool isGlobal)", "Marks this light as global or clustered and updates the bitfield.", mb => mb
+                    .Parameter("isGlobal:", "True for global light, false for clustered.")
+                )
+
+                .Method("LightComponent", "SetRadius(float radius)", "Sets the light radius.", mb => mb
+                    .Parameter("radius:", "The new radius.")
+                )
+
+                .Method("LightComponent", "SetDirection(Vector2 eulerDegrees)", "Sets the light direction using Euler degrees (pitch, yaw).", mb => mb
+                    .Parameter("eulerDegrees:", "Direction in Euler degrees.")
+                )
+
+                .Method("LightComponent", "SetAngle(float angle)", "Sets the spot light angle in radians.", mb => mb
+                    .Parameter("angle:", "The cone angle in radians.")
+                )
+
+                // === Transform Functions ===
+                .Method("LightComponent", "SetPositionListener(Func<Vector3> posListener)", "Sets a listener that updates the light position each frame.", mb => mb
+                    .Parameter("posListener:", "Function returning the current position.")
+                )
+
+                .Method("LightComponent", "SetDirectionListener(Func<Vector3> dirListener)", "Sets a listener that updates the light direction each frame.", mb => mb
+                    .Parameter("dirListener:", "Function returning the current direction.")
+                )
+
+                .Method("LightComponent", "Follow(Transform transform)", "Configures the light to follow a Transform's position and forward direction.", mb => mb
+                    .Parameter("transform:", "The transform to follow.")
+                )
+
+                // === Light Data Interface ===
+                .Method("LightComponent", "Enable(params LightConfig[] configs)", "Enables one or more light configuration flags.", mb => mb
+                    .Parameter("configs:", "The configuration flags to enable.")
+                )
+
+                .Method("LightComponent", "Disable(params LightConfig[] configs)", "Disables one or more light configuration flags.", mb => mb
+                    .Parameter("configs:", "The configuration flags to disable.")
+                )
+
+                .Method("LightComponent", "Enable(LightConfig lightConfig)", "Enables a single light configuration flag.", mb => mb
+                    .Parameter("lightConfig:", "The configuration flag to enable.")
+                )
+
+                .Method("LightComponent", "Disable(LightConfig lightConfig)", "Disables a single light configuration flag.", mb => mb
+                    .Parameter("lightConfig:", "The configuration flag to disable.")
+                )
+
+                // === Component Interface ===
+                .Method("void", "Load()", "Called when the component is loaded.")
+
+                .Method("void", "Update(float deltaTime)", "Updates the light each frame, applying position and direction listeners.", mb => mb
+                    .Parameter("deltaTime:", "Time elapsed since the last frame.")
+                )
+
+                .Method("void", "OnAdd()", "Called when the component is added to an entity. Auto‑registers the light with the RenderPipeline if enabled.")
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

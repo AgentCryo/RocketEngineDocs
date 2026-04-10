@@ -1,0 +1,75 @@
+@page "/RERL/Loaders/ModelLoader"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RERL/Loaders/ModelLoader")
+            .Title("ModelLoader")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RERL.Loaders")
+            .Library("RERL")
+            .Paragraph("Provides functionality for loading mesh and model data from glTF and GLB files. Supports hierarchical transforms, material assignment, and conversion into RenderData.Mesh instances.")
+            .Members(m => m
+
+                // === Struct: Model ===
+                .Struct("Model", "Represents a loaded model containing one or more mesh sub‑objects.", s => {
+                    s.Add(new MembersBuilder.DataField("Mesh[]", "SubMeshes", "The mesh sub‑objects that make up the model."));
+                })
+
+                // === Struct: ModelReturn ===
+                .Struct("ModelReturn", "Represents a single node returned from a parsed glTF file, including its model, transform, and parent relationship.", s => {
+                    s.Add(new MembersBuilder.DataField("string", "Name", "The name of the node."));
+                    s.Add(new MembersBuilder.DataField("Model?", "Model", "The model associated with this node, or null if the node contains no mesh."));
+                    s.Add(new MembersBuilder.DataField("Transform", "Transform", "The transform extracted from the glTF node."));
+                    s.Add(new MembersBuilder.DataField("string", "ParrentName", "The name of the node's parent, if any."));
+                })
+
+                // === Constants ===
+                .Field("string", "Cube", "The file path to the built‑in cube model.")
+                .Field("string", "Icosahedron", "The file path to the built‑in icosahedron model.")
+                .Field("string", "UVSphere", "The file path to the built‑in UV sphere model.")
+
+                // === Built‑in Mesh Properties ===
+                .Field("Model", "CubeMesh", "The built‑in cube model loaded from the Cube path.")
+                .Field("Model", "IcosahedronMesh", "The built‑in icosahedron model loaded from the Icosahedron path.")
+                .Field("Model", "UVSphereMesh", "The built‑in UV sphere model loaded from the UVSphere path.")
+
+                // === Public Methods ===
+
+                .Method("List<ModelReturn>", "ParseMesh(string filename)", "Parses a mesh file based on its extension and returns a list of model nodes.", mb => mb
+                    .Parameter("filename:", "The file path to load.")
+                    .Exception("Thrown if the file format is unsupported.")
+                )
+
+                .Method("List<ModelReturn>", "ParseGltf(string filePath, bool isGlb)", "Parses a glTF or GLB file and returns a list of model nodes.", mb => mb
+                    .Parameter("filePath:", "The path to the glTF or GLB file.")
+                    .Parameter("isGlb:", "Whether the file is a GLB binary file.")
+                )
+
+                .Method("Vertex[]", "BuildVertices(Vector3[] positions, Vector3[] normals, Vector2[] texCoords)", "Builds a vertex array from position, normal, and UV arrays.", mb => mb
+                    .Parameter("positions:", "The vertex positions.")
+                    .Parameter("normals:", "The vertex normals.")
+                    .Parameter("texCoords:", "The vertex UV coordinates.")
+                )
+
+                .Method("void", "DecomposeTRS(Matrix4 m, out Vector3 translation, out Quaternion rotation, out Vector3 scale)", "Decomposes a transformation matrix into translation, rotation, and scale components.", mb => mb
+                    .Parameter("m:", "The matrix to decompose.")
+                )
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

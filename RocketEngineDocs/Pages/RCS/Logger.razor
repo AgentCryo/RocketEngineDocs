@@ -1,0 +1,66 @@
+@page "/RCS/Logger"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RCS/Logger")
+            .Title("Logger")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RCS")
+            .Library("RCS")
+            .Paragraph("A lightweight, thread‑safe logging system used by RCS. Supports console output, optional log file creation, and asynchronous background writing through a blocking queue.")
+            .Members(m => m
+
+                // === Fields ===
+                // None, all fields are private.
+
+                // === Methods ===
+
+                .Method("void", "Initialize(bool createLogFile, bool outputToConsole)", "Initializes the logging system.", mb => mb
+                    .Parameter("createLogFile:", "Whether a log file should be created.")
+                    .Parameter("outputToConsole:", "Whether logs should be printed to the console.")
+                )
+
+                .Method("void", "Log(string log)", "Adds a standard log entry to the queue.", mb => mb
+                    .Parameter("log:", "The message to log.")
+                )
+
+                .Method("void", "Warning(string warning)", "Adds a warning entry to the queue.", mb => mb
+                    .Parameter("warning:", "The warning message.")
+                )
+
+                .Method("void", "Error(string error, bool throwException)", "Adds an error entry to the queue and optionally throws.", mb => mb
+                    .Parameter("error:", "The error message.")
+                    .Parameter("throwException:", "Whether an exception should be thrown.")
+                    .Exception("Throws if throwException is true.")
+                )
+            )
+
+            // === Example Section ===
+            .Section("Example Usage", s => s
+                .CodeBlock(
+@"using RCS;
+
+Logger.Initialize(createLogFile: true, outputToConsole: true);
+
+Logger.Log(""Engine started"");
+Logger.Warning(""Low memory detected"");
+Logger.Error(""Critical failure occurred"", throwException: false);")
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

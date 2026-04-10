@@ -1,0 +1,43 @@
+@page "/RERL/Loaders/MaterialLoader"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RERL/Loaders/MaterialLoader")
+            .Title("MaterialLoader")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RERL.Loaders")
+            .Library("RERL")
+            .Paragraph("Provides utilities for loading and representing PBR materials. Includes a lightweight Material struct‑style container used for storing albedo, roughness, metallic, double‑sided rendering, and bindless texture handle information.")
+            .Members(m => m
+
+                // === Struct: Material ===
+                .Struct("Material", "Represents a PBR material containing albedo, roughness, metallic, double‑sided rendering, and bindless texture handle data.", s => {
+                    s.Add(new MembersBuilder.DataField("string", "Name", "The name of the material."));
+                    s.Add(new MembersBuilder.DataField("bool", "DoubleSided", "Whether the material should be rendered without back‑face culling."));
+                    s.Add(new MembersBuilder.DataField("Vector3", "BaseAlbedo", "The base albedo color of the material."));
+                    s.Add(new MembersBuilder.DataField("float", "BaseRoughness", "The roughness value of the material."));
+                    s.Add(new MembersBuilder.DataField("float", "BaseMetallic", "The metallic value of the material."));
+                    s.Add(new MembersBuilder.DataField("ulong", "AlbedoHandle", "The bindless texture handle for the albedo texture."));
+                })
+
+                // === Fields ===
+                .Field("Material", "DefaultMaterial", "The default material used when no material information is available.")
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

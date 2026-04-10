@@ -1,0 +1,131 @@
+@page "/Devlogs/v0_2_RCS_RERL"
+@using RocketEngineDocs.Components
+@inherits RocketEngineDocs.Components.DevlogBase
+
+@code {
+
+    public override DevlogHeader Header => new()
+    {
+        Title = "RCS & RERL",
+        Version = "v0.2",
+        Summary = "Lighting, textures, GLTF support, and major rendering improvements.",
+        Url = "/Devlogs/v0_2_RCS_RERL",
+        Order = 2,
+        Date = new DateTime(2026, 4, 10),
+        IsWip = false,
+        Libraries = ["RCS", "RERL"]
+    };
+}
+
+<DevlogHeaderComponent Meta="Header" />
+
+<p>
+    Version v0.2 focuses on making Rocket Engine feel more like a usable engine rather than a boring old tech demo.
+    v0.2 add lighting, model loading, and a more complete rendering pipeline. As well as some backend stuff to
+    strengthen the engine so future systems have a solid base to build on.
+</p>
+
+<DevlogImage Src="Images/v0.2/scene.png"
+             Alt="Scene"
+             Caption="A look at the new lighting and GLTF model rendering in v0.2." />
+
+<h2>Overview</h2>
+
+<p>
+    The main focus of v0.2 was usability. This meant replacing temporary systems, adding missing rendering
+    features, and improving the workflow for building scenes. The biggest changes include a proper lighting
+    system, albedo texture support, and GLTF model loading with basic a hierarchy return system.
+</p>
+
+<ul>
+    <li>New lighting system (point, spot, directional).</li>
+    <li>Albedo Texture and color material support. PBR is to come.</li>
+    <li>GLTF scene loading (hierarchy, transforms, glb).</li>
+    <li>Improved G‑Buffer and shading pipeline.</li>
+    <li>OBJ support removed in favor of GLTF.</li>
+</ul>
+
+<div class="devlog-box">
+
+    <h2 class="lib-heading lib-rcs">RCS | Rocket Control System v0.2</h2>
+
+    <p>
+        RCS wasn't given as much love as RERL this update, but it did get Transform listeners, arbitrary entity data,
+        and an engine wide logger.
+    </p>
+
+    <h3>Completed in v0.2</h3>
+
+    <ul>
+        <li>
+            <strong>Transform Listeners</strong><br />
+            Components can follow an entity’s position or direction automatically, useful for lights and effects.
+        </li>
+
+        <li>
+            <strong>Entity Data Storage</strong><br />
+            Entities can store arbitrary key/value data, enabling easy procedural animation, and other cool stuff.
+        </li>
+        
+        <li>
+            <strong>Logger</strong><br />
+            The new logger can output logs, warnings, and errors to the console and or to a file.
+        </li>
+    </ul>
+</div>
+
+<div class="devlog-box">
+
+    <h2 class="lib-heading lib-rerl">RERL | Rocket Engine Rendering Library v0.2</h2>
+
+    <p>
+        RERL saw the most change in v0.2. The rendering pipeline has been expanded to support lighting,
+        albedo textures, and model loading. Many of the temporary systems from v0.1 were replaced with more
+        complete versions.
+    </p>
+
+    <h3>Completed in v0.2</h3>
+
+    <ul>
+        <li>
+            <strong>Lighting System</strong><br />
+            Support for point, spot, and directional lights, including smooth edge clamping and global lights. With cluster shading optimizations.
+        </li>
+
+        <li>
+            <strong>Albedo Texture & Color Material Support</strong><br />
+            Models can now use albedo textures & color materials. PBR materials are yet to come.
+        </li>
+
+        <li>
+            <strong>GLTF Model Loading</strong><br />
+            GLTF support. OBJ loading was removed.
+        </li>
+
+        <li>
+            <strong>Improved G‑Buffer</strong><br />
+            A more complete deferred rendering layout with position, normal, albedo, and depth attachments.
+        </li>
+
+        <li>
+            <strong>Shader Improvements</strong><br />
+            Shader type categories, and better helper includes for prelight and post‑process passes.
+        </li>
+
+        <li>
+            <strong>Post‑Processing Enhancements</strong><br />
+            The post‑processing system from v0.1 was refined and integrated more cleanly into the pipeline.
+        </li>
+
+        <li>
+            <strong>Compute Shader Support</strong><br />
+            A new <code>Compute</code> class allows GPU compute workloads with a simple API.
+        </li>
+    </ul>
+
+    <p>
+        With these changes, RERL can now render complex scenes with many lights and albedo textured models.
+        The pipeline is still evolving, and needed features will soon be added.
+    </p>
+
+</div>

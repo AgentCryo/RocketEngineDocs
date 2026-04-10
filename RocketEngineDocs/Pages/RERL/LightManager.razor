@@ -1,0 +1,36 @@
+@page "/RERL/RenderPipeline/LightManager"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RERL/RenderPipeline/LightManager")
+            .Title("LightManager")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RERL")
+            .Library("RERL")
+            .Paragraph("Handles GPU‑side light buffer allocation and uploading clustered and global lights to SSBOs. This system is internal to the RenderPipeline and is automatically managed by the engine.")
+            .Members(m => m
+
+                .Field("bool", "Initialized", "Whether the light manager has been initialized.")
+
+                .Method("void", "Initialize()", "Initializes GPU buffers for clustered and global lights.")
+
+                .Method("void", "Rebuild()", "Uploads all clustered and global lights to their respective SSBOs.")
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

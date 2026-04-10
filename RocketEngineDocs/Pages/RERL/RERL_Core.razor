@@ -1,0 +1,73 @@
+@page "/RERL/RERL_Core"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RERL/RERL_Core")
+            .Title("RERL_Core")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RERL")
+            .Library("RERL")
+            .Paragraph("The core rendering system for the Rocket Engine Rendering Layer (RERL). Handles shader registration, mesh batching, G‑Buffer creation, post‑processing, and the main render loop.")
+            .Paragraph("This class must be initialized before any renderables, shaders, or materials are used. It sets up OpenGL state, loads internal shaders, and prepares the render pipeline.")
+            .Members(m => m
+
+                // === Methods ===
+
+                .Method("Shader", "GetPrelightShader()", "Gets the internal pre‑lighting shader used by the rendering pipeline.")
+
+                .Method("void", "SetCamera(Camera camera)", "Sets the active camera used for rendering.", mb => mb
+                    .Parameter("camera:", "The camera instance to use.")
+                )
+
+                .Method("void", "SetGameWindow(GameWindow window)", "Sets the OpenTK game window used for rendering.", mb => mb
+                    .Parameter("window:", "The game window instance.")
+                )
+
+                .Method("void", "Load()", "Initializes the rendering system, loads shaders, creates the G‑Buffer, and prepares OpenGL state. Must be called before adding renderables.")
+
+                .Method("void", "RenderFrame(FrameEventArgs args)", "Renders a single frame, including geometry pass, post‑processing, and buffer swapping.", mb => mb
+                    .Parameter("args:", "Frame timing information.")
+                )
+
+                .Method("void", "Resize()", "Resizes the render pipeline and G‑Buffer to match the window dimensions.")
+            )
+
+            // === Example Section ===
+            .Section("Example Usage:", s => s
+                .CodeBlock(
+@"using RERL;
+using RERL.Components;
+using OpenTK.Windowing.Desktop;
+
+// Create window
+var window = new GameWindow(GameWindowSettings.Default, NativeWindowSettings.Default);
+
+// Set window + camera
+RERL_Core.SetGameWindow(window);
+RERL_Core.SetCamera(new Camera());
+
+// Initialize rendering
+RERL_Core.Load();
+
+// Main loop
+window.RenderFrame += args => RERL_Core.RenderFrame(args);
+window.Run();")
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

@@ -1,0 +1,25 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager Nav
+
+<div class="page">
+
+    @if (!IsHomePage)
+    {
+        <div class="sidebar">
+            <div class="brand-pocket">
+                <a class="brand-title" href="">RocketEngineDocs</a>
+            </div>
+
+            <NavMenu />
+        </div>
+    }
+
+    <main class="content-area">
+        @Body
+    </main>
+
+</div>
+
+@code {
+    bool IsHomePage => Nav.Uri.EndsWith("/") || Nav.Uri.EndsWith("/home");
+}

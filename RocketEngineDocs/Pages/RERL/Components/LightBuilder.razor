@@ -1,0 +1,96 @@
+@page "/RERL/Components/LightComponent/LightBuilder"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RERL/Components/LightComponent/LightBuilder")
+            .Title("LightBuilder")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RERL.Components")
+            .Library("RERL")
+            .Paragraph("Provides a fluent builder API for constructing LightComponent instances. LightBuilder allows chaining configuration calls to create lights in a clean and expressive way.")
+            .Members(m => m
+
+                // === Constructor (internal) ===
+                .Method("LightBuilder", "LightBuilder(LightType type)", 
+                    "Creates a new LightBuilder for the given light type.", mb => mb
+                        .Parameter("type:", "The type of light being constructed.")
+                )
+
+                // === Static Constructors ===
+                .Method("LightBuilder", "Point()", 
+                    "Creates a LightBuilder configured for a point light.")
+
+                .Method("LightBuilder", "Spot()", 
+                    "Creates a LightBuilder configured for a spot light.")
+
+                .Method("LightBuilder", "Directional()", 
+                    "Creates a LightBuilder configured for a directional light.")
+
+                // === Setters ===
+                .Method("LightBuilder", "Radius(float r)", 
+                    "Sets the light radius.", mb => mb
+                        .Parameter("r:", "The radius value.")
+                )
+
+                .Method("LightBuilder", "Intensity(float i)", 
+                    "Sets the light intensity.", mb => mb
+                        .Parameter("i:", "The intensity value.")
+                )
+
+                .Method("LightBuilder", "Color(Vector3 c)", 
+                    "Sets the light color.", mb => mb
+                        .Parameter("c:", "The color value.")
+                )
+
+                .Method("LightBuilder", "Global(bool g)", 
+                    "Marks the light as global or clustered.", mb => mb
+                        .Parameter("g:", "True for global light, false for clustered.")
+                )
+
+                .Method("LightBuilder", "DirectionDegrees(Vector2 eulerDegrees)", 
+                    "Sets the light direction using Euler degrees (pitch, yaw).", mb => mb
+                        .Parameter("eulerDegrees:", "Direction in Euler degrees.")
+                )
+
+                .Method("LightBuilder", "AngleDegrees(float deg)", 
+                    "Sets the spot light angle in degrees.", mb => mb
+                        .Parameter("deg:", "Angle in degrees.")
+                )
+
+                .Method("LightBuilder", "Follow(Transform t)", 
+                    "Configures the light to follow the given Transform.", mb => mb
+                        .Parameter("t:", "The transform to follow.")
+                )
+
+                .Method("LightBuilder", "Enable(params LightConfig[] cfg)", 
+                    "Enables one or more light configuration flags.", mb => mb
+                        .Parameter("cfg:", "Configuration flags to enable.")
+                )
+
+                .Method("LightBuilder", "Disable(params LightConfig[] cfg)", 
+                    "Disables one or more light configuration flags.", mb => mb
+                        .Parameter("cfg:", "Configuration flags to disable.")
+                )
+
+                // === Build ===
+                .Method("LightComponent", "Build()", 
+                    "Returns the constructed LightComponent instance.")
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

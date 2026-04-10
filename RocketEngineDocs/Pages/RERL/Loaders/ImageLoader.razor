@@ -1,0 +1,45 @@
+@page "/RERL/Loaders/ImageLoader"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RERL/Loaders/ImageLoader")
+            .Title("ImageLoader")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RERL")
+            .Library("RERL")
+            .Paragraph("Provides texture loading utilities including PNG/JPG decoding, DDS loading, caching, and bindless texture handle management. Supports automatic DDS conversion and reuse of cached textures for improved performance.")
+            .Members(m => m
+
+                // === Public Methods ===
+
+                .Method("int", "LoadTexture(string path)", "Loads a texture from disk. Supports PNG, JPG, JPEG, and DDS formats.", mb => mb
+                    .Parameter("path:", "The file path to the texture.")
+                    .Exception("Thrown if the texture cannot be decoded or loaded.")
+                )
+
+                .Method("ulong", "GetBindlessHandle(int texId)", "Retrieves or creates a bindless texture handle for the given texture ID.", mb => mb
+                    .Parameter("texId:", "The OpenGL texture ID.")
+                )
+
+                .Method("void", "DisposeTexture(int texId)", "Deletes a texture and removes its bindless handle.", mb => mb
+                    .Parameter("texId:", "The OpenGL texture ID to delete.")
+                )
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

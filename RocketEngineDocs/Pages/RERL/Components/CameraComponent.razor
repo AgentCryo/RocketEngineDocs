@@ -1,0 +1,84 @@
+@page "/RERL/Components/CameraComponent"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RERL/Components/CameraComponent")
+            .Title("CameraComponent")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RERL.Components")
+            .Library("RERL")
+            .Paragraph("A component that controls a RERL camera using the entity's Transform. Automatically updates the camera's position, rotation, and view matrix each frame.")
+            .Members(m => m
+
+                // === Constructor ===
+                .Method("CameraComponent", "CameraComponent()", 
+                    "Creates a new CameraComponent with an internal RERL camera instance.")
+
+                // === Properties ===
+                .Field("Entity", "Owner", "The entity that owns this component.")
+                .Field("Camera", "Camera", "The internal RERL camera instance used for rendering.")
+
+                // === Accessors ===
+                .Method("Camera", "GetCamera()", "Gets the internal camera instance.")
+
+                // === Projection Methods ===
+                .Method("void", "SetProjectionFovYInDegrees(float fovY, float aspect, float near, float far)",
+                    "Sets the projection matrix using a vertical field of view (in degrees).", mb => mb
+                        .Parameter("fovY:", "Vertical field of view in degrees.")
+                        .Parameter("aspect:", "Screen width divided by screen height.")
+                        .Parameter("near:", "Near clipping plane distance.")
+                        .Parameter("far:", "Far clipping plane distance.")
+                )
+
+                .Method("void", "SetProjectionFovXInDegrees(float fovX, float aspect, float near, float far)",
+                    "Sets the projection matrix using a horizontal field of view (in degrees).", mb => mb
+                        .Parameter("fovX:", "Horizontal field of view in degrees.")
+                        .Parameter("aspect:", "Screen width divided by screen height.")
+                        .Parameter("near:", "Near clipping plane distance.")
+                        .Parameter("far:", "Far clipping plane distance.")
+                )
+
+                // === Transform Setters ===
+                .Method("CameraComponent", "SetPosition(Vector3 position)",
+                    "Sets the camera's world position.", mb => mb
+                        .Parameter("position:", "The new camera position.")
+                )
+
+                .Method("CameraComponent", "SetRotationInDegrees(Vector3 rotation)",
+                    "Sets the camera's rotation using Euler angles (degrees).", mb => mb
+                        .Parameter("rotation:", "Euler rotation in degrees.")
+                )
+
+                .Method("CameraComponent", "SetRotation(Quaternion rotation)",
+                    "Sets the camera's rotation using a quaternion.", mb => mb
+                        .Parameter("rotation:", "The new camera rotation.")
+                )
+
+                // === Component Interface ===
+                .Method("void", "Load()", "Called when the component is loaded.")
+
+                .Method("void", "Update(float deltaTime)",
+                    "Updates the camera to match the owner's Transform and recalculates the view matrix.", mb => mb
+                        .Parameter("deltaTime:", "Time elapsed since the last frame.")
+                )
+
+                .Method("void", "OnAdd()", "Called when the component is added to an entity.")
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

@@ -1,0 +1,47 @@
+@page "/RERL/ShaderTypes/Compute"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RERL/ShaderTypes/Compute")
+            .Title("Compute")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RERL.ShaderTypes")
+            .Implements(("Shader", "/RERL/ShaderTypes/Shader"))
+            .Library("RERL")
+            .Paragraph("Represents an OpenGL compute shader. Compute shaders operate independently of the graphics pipeline and are used for GPU‑accelerated tasks such as clustering, culling, lighting, and general data processing.")
+            .Paragraph("Compute inherits from Shader but overrides shader attachment behavior to compile and link a single compute shader stage.")
+            .Members(m => m
+
+                // === AttachComputeShader ===
+                .Method("Shader", "AttachComputeShader(string computePath)",
+                    "Loads, compiles, and links a compute shader into this shader program.", mb => mb
+                        .Parameter("computePath:", "Path to the compute shader source file.")
+                        .Exception("Thrown if shader compilation or linking fails.")
+                )
+
+                // === Dispatch ===
+                .Method("void", "Dispatch(int x, int y, int z)",
+                    "Dispatches the compute shader with the given work group counts.", mb => mb
+                        .Parameter("x:", "Number of work groups in the X dimension.")
+                        .Parameter("y:", "Number of work groups in the Y dimension (default 1).")
+                        .Parameter("z:", "Number of work groups in the Z dimension (default 1).")
+                )
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

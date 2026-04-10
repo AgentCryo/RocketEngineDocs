@@ -1,0 +1,71 @@
+@page "/RCS/Components/IComponent"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RCS/Components/IComponent")
+            .Title("IComponent")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RCS.Components")
+            .Library("RCS")
+            .Paragraph("Defines the base behavior for all components in the Rocket Component System (RCS). Components are attached to Entity objects and participate in the entity lifecycle through load, update, and initialization callbacks.")
+            .Members(m => m
+
+                // === Fields ===
+                .Field("Entity", "Owner", "The entity that owns this component. Automatically assigned when added to an entity.")
+
+                // === Methods ===
+
+                .Method("void", "Load()", "Called when the scene is first loaded. Used for initialization that should run before updates begin.")
+
+                .Method("void", "Update(double deltaTime)", "Called once per frame by the owning entity.", mb => mb
+                    .Parameter("deltaTime:", "The time elapsed since the previous frame.")
+                )
+
+                .Method("void", "OnAdd()", "Called immediately after the component is added to an entity.")
+            )
+
+            // === Example Section ===
+            .Section("Example Implementation", s => s
+                .CodeBlock(
+@"using RCS;
+using RCS.Components;
+
+public class HealthComponent : IComponent
+{
+    public Entity Owner { get; set; }
+    public int Health = 100;
+
+    public void Load()
+    {
+        // Called when the scene loads
+    }
+
+    public void Update(float deltaTime)
+    {
+        // Per‑frame logic
+    }
+
+    public void OnAdd()
+    {
+        // Initialization after being attached to an entity
+    }
+}")
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

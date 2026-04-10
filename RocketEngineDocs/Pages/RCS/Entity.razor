@@ -1,0 +1,87 @@
+@page "/RCS/Entity"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RCS/Entity")
+            .Title("Entity")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RCS")
+            .Library("RCS")
+            .Paragraph("Represents an entity that can contain and manage a collection of components. Each entity has a Transform and can load or update all attached components.")
+            .Members(m => m
+
+                // === Fields ===
+                .Field("Transform", "Transform", "The transform associated with this entity.")
+
+                // === Constructor ===
+                .Method("Entity", "Entity(string name)", "Creates a new entity with the given name.", mb => mb
+                    .Parameter("name:", "The name of the entity.")
+                )
+
+                // === Methods ===
+                .Method("string", "GetName()", "Gets the name of the entity.")
+
+                .Method("Entity", "AddComponent(IComponent component)", "Adds a component instance to the entity.", mb => mb
+                    .Parameter("component:", "The component to add.")
+                    .Exception("Thrown if the component is invalid or cannot be added.")
+                )
+
+                .Method("Entity", "AddComponent<T>()", "Creates and adds a new component of type T to the entity.")
+
+                .Method("T", "GetComponent<T>()", "Retrieves a component of type T from the entity.", mb => mb
+                    .Exception("Thrown if a component of the specified type does not exist.")
+                )
+
+                .Method("bool", "TryGetComponent<T>(IComponent component)", "Attempts to retrieve a component of type T.", mb => mb
+                    .Parameter("component:", "The retrieved component, or null if not found.")
+                )
+
+                .Method("void", "RemoveAllComponents()", "Removes all components from the entity.")
+
+                .Method("void", "RemoveComponent(IComponent component)", "Removes a specific component instance from the entity.", mb => mb
+                    .Parameter("component:", "The component to remove.")
+                )
+
+                .Method("void", "Load()", "Calls Load() on all components.")
+
+                .Method("void", "Update(double deltaTime)", "Calls Update() on all components.", mb => mb
+                    .Parameter("deltaTime:", "Time elapsed since the last update.")
+                )
+            )
+
+            // === Example Section ===
+            .Section("Example Usage", s => s
+                .CodeBlock(
+@"using RCS;
+using RCS.Components;
+
+var player = new Entity(""Player"");
+
+player.AddComponent<MovementComponent>();
+player.AddComponent(new HealthComponent(100));
+
+player.Load();
+
+while (gameRunning)
+{
+    player.Update(deltaTime);
+}")
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

@@ -1,0 +1,160 @@
+@page "/RERL/RenderPipeline"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RERL/RenderPipeline")
+            .Title("RenderPipeline")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RERL")
+            .Library("RERL")
+            .Paragraph("The RenderPipeline is responsible for batching renderables by shader, executing the geometry pass, running clustered lighting compute passes, applying post‑processing effects, and presenting the final frame to the screen.")
+            .Paragraph("This class is automatically initialized by RERL_Core and should not be manually instantiated. Users interact with the pipeline by registering renderables, shaders, materials, lights, and post‑processing effects.")
+            .Members(m => m
+
+                // === Renderables ===
+                .Method("void", "RegisterRenderable(Renderable renderable)", "Registers a renderable with the pipeline so it can be drawn.", mb => mb
+                    .Parameter("renderable:", "The renderable to register.")
+                )
+
+                .Method("void", "UnregisterRenderable(Renderable renderable)", "Removes a renderable from the pipeline.", mb => mb
+                    .Parameter("renderable:", "The renderable to remove.")
+                )
+
+                // === Shaders ===
+                .Method("void", "RegisterShader(Shader shader)", "Registers a shader with the pipeline and assigns automatic uniforms.", mb => mb
+                    .Parameter("shader:", "The shader to register.")
+                )
+
+                .Method("void", "UnregisterShader(Shader shader)", "Removes a shader from the pipeline.", mb => mb
+                    .Parameter("shader:", "The shader to unregister.")
+                )
+
+                // === Materials ===
+                .Method("int", "RegisterMaterial(Material material)", "Registers a material and returns its index.", mb => mb
+                    .Parameter("material:", "The material to register.")
+                )
+
+                .Method("void", "UnregisterMaterial(Material material)", "Removes a material from the pipeline.", mb => mb
+                    .Parameter("material:", "The material to remove.")
+                )
+
+                .Method("int", "GetMaterialIndex(Material material)", "Gets the index of a registered material.", mb => mb
+                    .Parameter("material:", "The material to look up.")
+                )
+
+                .Method("Material", "GetIndexedMaterial(int materialIndex)", "Retrieves a material by its index.", mb => mb
+                    .Parameter("materialIndex:", "The index of the material.")
+                )
+
+                // === Post‑processing ===
+                .Method("void", "RegisterPostProcess(PostProcess postProcess)", "Registers a post‑processing effect.", mb => mb
+                    .Parameter("postProcess:", "The post‑processing effect to register.")
+                )
+
+                .Method("void", "UnregisterPostProcess(PostProcess postProcess)", "Removes a post‑processing effect from the pipeline.", mb => mb
+                    .Parameter("postProcess:", "The post‑processing effect to remove.")
+                )
+
+                // === Lights ===
+                .Method("void", "RegisterLight(LightComponent light)", "Registers a light for clustered lighting.", mb => mb
+                    .Parameter("light:", "The light to register.")
+                )
+
+                .Method("void", "UnregisterLight(LightComponent light)", "Removes a light from the pipeline.", mb => mb
+                    .Parameter("light:", "The light to remove.")
+                )
+
+                .Method("void", "RegisterGlobalLight(LightComponent light)", "Registers a global (non‑clustered) light.", mb => mb
+                    .Parameter("light:", "The global light to register.")
+                )
+
+                .Method("void", "UnregisterGlobalLight(LightComponent light)", "Removes a global light from the pipeline.", mb => mb
+                    .Parameter("light:", "The global light to remove.")
+                )
+
+                // === Deferred Shader ===
+                .Method("void", "UpdateDeferredShader()", "Updates uniforms for the deferred shading pass.")
+            )
+
+            // === Example Section ===
+            .Section("Example Usage", s => s
+                .CodeBlock(
+                    @"using OpenTK.Windowing.Desktop;
+using RCS;
+using RERL;
+using RERL.Components;
+using RERL.Loaders;
+using RERL.ShaderTypes;
+
+// Create window + camera
+var window = new GameWindow(...);
+var camera = new Camera();
+
+// Tell RERL which window and camera to use
+RERL_Core.SetGameWindow(window);
+RERL_Core.SetCamera(camera);
+
+// Register shaders with the pipeline
+var shader = new Shader().AttachShader(""vert.glsl"", ""frag.glsl"", ShaderType.Shader);
+RenderPipeline.RegisterShader(shader);
+
+// Register the default engine shader
+var defaultShader = RERL_Core.GetPrelightShader();
+RenderPipeline.RegisterShader(defaultShader);
+
+// Initialize RERL (creates GBuffer, sets GL state, etc.)
+RERL_Core.Load();
+
+// Create a scene
+var scene = new Scene(""Main"");
+
+// Create entities with renderer components
+var entity = new Entity(""Object"")
+    .AddComponent(new MeshRenderer()
+        .AttachMesh(ModelLoader.CubeMesh)
+        .AttachShader(shader));
+
+var defaultEntity = new Entity(""DefaultShaderObject"")
+    .AddComponent(new MeshRenderer()
+        .AttachMesh(ModelLoader.CubeMesh)
+        .AttachShader(defaultShader));
+
+scene.AddEntity(entity);
+scene.AddEntity(defaultEntity);
+
+// Register a custom post‑process
+var myPost = new PostProcess()
+    .AttachPostProcessShader(""./Shaders/Post/myEffect.post"", window);
+
+RenderPipeline.RegisterPostProcess(myPost);
+
+// Activate the scene
+RCS_Core.AddScene(scene);
+RCS_Core.SetActiveScene(""Main"");
+RCS_Core.LoadActiveScene();
+
+// Game loop
+window.UpdateFrame += args => RCS_Core.UpdateActiveScene(args.Time);
+window.RenderFrame += args => RERL_Core.RenderFrame(args);
+
+window.Run();
+")
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

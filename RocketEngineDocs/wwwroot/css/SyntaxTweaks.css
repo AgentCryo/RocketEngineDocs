@@ -1,0 +1,63 @@
+/* Rider-like syntax overrides */
+pre[class*="language-"],
+code[class*="language-"] {
+    background: #1f242b !important; /* same as container */
+    color: #e6e6e6 !important;
+}
+
+/* Keywords (public, void, class, return, etc.) */
+.token.keyword {
+    color: #cc7832 !important;
+}
+
+/* Strings ("hello") */
+.token.string {
+    color: #6a8759 !important;
+}
+
+/* Numbers (123, 3.14) */
+.token.number {
+    color: #6897bb !important;
+}
+
+/* Function names (DoThing) */
+.token.function {
+    color: #ffc66d !important;
+}
+
+/* Class names (Console, MyClass) */
+.token.class-name {
+    color: #9876aa !important;
+}
+
+/* Types (int, string, bool) */
+.token.builtin,
+.token.primitive {
+    color: #9876aa !important;
+}
+
+/* Operators (+, -, =>, ==) */
+.token.operator {
+    color: #a9b7c6 !important;
+}
+
+/* Punctuation ({ } ( ) ;) */
+.token.punctuation {
+    color: #a9b7c6 !important;
+}
+
+/* Comments */
+.token.comment {
+    color: #808080 !important;
+    font-style: italic;
+}
+
+/* Namespace / using statements */
+.token.namespace {
+    color: #a9b7c6 !important;
+}
+
+/* Properties */
+.token.property {
+    color: #a9b7c6 !important;
+}

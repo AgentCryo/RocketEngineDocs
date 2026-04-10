@@ -1,0 +1,275 @@
+@page "/Guides/GettingStarted"
+@using RocketEngineDocs.Components
+
+<h3>Getting Started</h3>
+
+<p>
+    Updated for v0.2.0  
+    This guide walks you through creating a minimal Rocket Engine scene:  
+    a window, a camera, a scene, and a simple renderable object.
+</p>
+
+<h3>Requirements</h3>
+<ul>
+    <li>.NET 9.0</li>
+    <li>OpenTK (included through RERL)</li>
+    <li>A GPU that supports OpenGL 4.6+</li>
+</ul>
+
+<h3>Installation</h3>
+
+<p>Install via .NET CLI:</p>
+<CodeBlock Code="@((_) => @"
+dotnet add package RocketEngine.RCS --version 0.2.0
+dotnet add package RocketEngine.RERL --version 0.2.0
+")" />
+
+<p>Or install via NuGet Package Manager:</p>
+<CodeBlock Code="@((_) => @"
+RocketEngine.RCS Version 0.2.0
+RocketEngine.RERL Version 0.2.0
+")" />
+
+<p>You may also download the <code>.nupkg</code> files from the release page.</p>
+
+<h3>Creating the Window</h3>
+
+<p>
+    Rocket Engine uses OpenTK for windowing.  
+    Start by creating a <code>Game</code> class that inherits from <code>GameWindow</code>.
+</p>
+
+<CodeBlock Code="@((_) => @"
+using OpenTK.Windowing.Common;
+using OpenTK.Windowing.Desktop;
+
+static void Main(string[] args)
+{
+    var nativeSettings = new NativeWindowSettings
+    {
+        Title = ""Rocket Engine | Getting Started"",
+        Size = new(1280, 720)
+    };
+
+    using var game = new Game(GameWindowSettings.Default, nativeSettings);
+    game.Run();
+}
+")" />
+
+<p>Then define the <code>Game</code> class:</p>
+
+<CodeBlock Code="@((_) => @"
+public class Game(GameWindowSettings gws, NativeWindowSettings nws)
+    : GameWindow(gws, nws)
+{
+    protected override void OnLoad()
+    {
+        base.OnLoad();
+    }
+
+    protected override void OnUpdateFrame(FrameEventArgs args)
+    {
+        base.OnUpdateFrame(args);
+    }
+
+    protected override void OnRenderFrame(FrameEventArgs args)
+    {
+        base.OnRenderFrame(args);
+    }
+
+    protected override void OnResize(ResizeEventArgs e)
+    {
+        base.OnResize(e);
+    }
+}
+")" />
+
+<h3>Initializing Rocket Engine</h3>
+
+<p>
+    Rocket Engine has two main systems:
+</p>
+
+<ul>
+    <li><strong>RCS</strong>: Entity/Component system (Rocket Control System)</li>
+    <li><strong>RERL</strong>: Rendering system (Rocket Engine Rendering Library)</li>
+</ul>
+
+<p>
+    Before rendering anything, you must tell RERL which window and camera to use.
+</p>
+
+<CodeBlock Code="@((_) => @"
+Camera _camera = new Camera();
+
+protected override void OnLoad()
+{
+    base.OnLoad();
+
+    // Set up projection, I prefer FovX so I will will be using that for this guide.
+    _camera.SetProjectionFovXInDegrees(
+        90,
+        Size.X / (float)Size.Y,
+        0.1f,
+        100f
+    );
+
+    // Register window & camera with RERL
+    RERL_Core.SetCamera(_camera);
+    RERL_Core.SetGameWindow(this);
+    RERL_Core.Load();
+}
+")" />
+
+<h3>Creating a Scene</h3>
+
+<p>
+    RCS organizes your world into scenes.  
+    A scene contains entities, and entities contain components.
+</p>
+
+<CodeBlock Code="@((_) => @"
+RCS_Core.Scene _scene;
+
+protected override void OnLoad()
+{
+    base.OnLoad();
+
+    _scene = new RCS_Core.Scene(""Main"");
+
+    RCS_Core.AddScene(_scene); // Registers a scene to RCS.
+    RCS_Core.SetActiveScene(""Main""); // There can only be one scene active at a time, active scene's get update calls. (And future under the hood stuff.)
+    RCS_Core.LoadActiveScene(); // Calls a load for all entities/components in the active scene.
+}
+")" />
+
+<h3>Adding a Camera</h3>
+
+<p>
+    You can use either the raw <code>Camera</code> class or the <code>CameraComponent</code>.  
+    For now, we’ll use the component so the camera follows the entity’s transform.
+</p>
+
+<CodeBlock Code="@((_) => @"
+// In OnLoad()
+var cameraEntity = new Entity(""Camera"")
+    .AddComponent<CameraComponent>();
+
+_scene.AddEntity(cameraEntity);
+")" />
+
+<p>
+    When the window resizes, update the projection:
+</p>
+
+<CodeBlock Code="@((_) => @"
+protected override void OnResize(ResizeEventArgs e)
+{
+    base.OnResize(e);
+
+    var cam = cameraEntity.GetComponent<CameraComponent>();
+    cam.SetProjectionFovXInDegrees(
+        90,
+        Size.X / (float)Size.Y,
+        0.1f,
+        100f
+    );
+
+    RERL_Core.Resize();
+}
+")" />
+
+<h3>Rendering a Simple Object</h3>
+
+<p>
+    To render something, you need:
+</p>
+
+<ul>
+    <li>A mesh (from <code>ModelLoader</code>)</li>
+    <li>A shader</li>
+    <li>A <code>ModelRenderer</code> component</li>
+</ul>
+
+<p>Here’s a basic cube:</p>
+
+<CodeBlock Code="@((_) => @"
+var cube = new Entity(""Cube"")
+    .AddComponent(new ModelRenderer()
+        .AttachModel(ModelLoader.CubeMesh) // Cube model that comes with RERL.
+        .AttachShader(RERL_Core.GetPrelightShader())); // The default rendering shader, there will be another guide in the future that touches on this more.
+
+cube.Transform.Position = new Vector3(0, 1, -3);
+
+_scene.AddEntity(cube);
+")" />
+
+<h3>Lights</h3>
+
+<p>
+    Lights are optional, but most scenes look better with at least one.  
+    Here’s a simple point light:
+</p>
+
+<CodeBlock Code="@((_) => @"
+var light = new Entity(""Light"")
+    .AddComponent(
+        LightBuilder.Point()
+            .Radius(6)
+            .Intensity(3)
+            .Color(new Vector3(1, 0.95f, 0.8f))
+            .Build()
+    );
+
+light.Transform.Position = new Vector3(0, 2, 0);
+
+_scene.AddEntity(light);
+")" />
+
+<h3>Updating and Rendering</h3>
+
+<p>
+    RCS updates your scene.  
+    RERL renders it.
+</p>
+
+<CodeBlock Code="@((_) => @"
+protected override void OnUpdateFrame(FrameEventArgs args)
+{
+    base.OnUpdateFrame(args);
+    RCS_Core.UpdateActiveScene(args.Time);
+}
+
+protected override void OnRenderFrame(FrameEventArgs args)
+{
+    base.OnRenderFrame(args);
+    RERL_Core.RenderFrame(args);
+}
+")" />
+
+<h3>That’s the Basics</h3>
+
+<p>
+    At this point you have:
+</p>
+
+<ul>
+    <li>A window</li>
+    <li>A camera</li>
+    <li>A scene</li>
+    <li>A renderable object</li>
+    <li>A light</li>
+</ul>
+
+<p>
+    From here, you can explore materials, post‑processing, custom shaders, and more.  
+    Future guides will cover:
+</p>
+
+<ul>
+    <li>Writing custom components</li>
+    <li>Loading GLTF models</li>
+    <li>Post‑processing effects</li>
+</ul>
+
+<p>Welcome to Rocket Engine.</p>

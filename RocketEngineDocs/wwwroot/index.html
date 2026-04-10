@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RocketEngineDocs</title>
+    <base href="/RocketEngineDocs/" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/SyntaxTweaks.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+    <script src="prism-init.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link href="RocketEngineDocs.styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/docstyle.css" />
+    <link rel="stylesheet" href="css/docsHome.css" />
+    <link rel="stylesheet" href="css/devlogstyle.css" />
+    <link rel="stylesheet" href="css/roadmapstyle.css" />
+    <link rel="stylesheet" href="css/links.css" />
+</head>
+
+<body>
+    <div id="app">
+        <svg class="loading-progress">
+            <circle r="40%" cx="50%" cy="50%" />
+            <circle r="40%" cx="50%" cy="50%" />
+        </svg>
+        <div class="loading-progress-text"></div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="." class="reload">Reload</a>
+        <span class="dismiss">🗙</span>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+        
+        window.addEventListener("hashchange", () => {
+            const id = location.hash.slice(1);
+            const el = document.getElementById(id);
+            if (!el) return;
+
+            // Remove .is-target from ANY element that has it
+            document.querySelectorAll(".is-target")
+                .forEach(node => node.classList.remove("is-target"));
+
+            // Restart animation by forcing reflow
+            void el.offsetWidth;
+
+            // Apply .is-target to the new target element
+            el.classList.add("is-target");
+            console.log("hashchange fired");
+        });
+    </script>
+</body>
+
+</html>

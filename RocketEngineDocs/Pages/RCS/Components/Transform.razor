@@ -1,0 +1,151 @@
+@page "/RCS/Components/Transform"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RCS/Components/Transform")
+            .Title("Transform")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RCS")
+            .Library("RCS")
+            .Paragraph("A built‑in component that provides position, rotation, scale, hierarchical parenting, and world/local matrix calculations. Every Entity contains a Transform instance.")
+            .Members(m => m
+
+                // === Fields ===
+                .Field("Entity?", "Owner", "The entity that owns this component.")
+                .Field("Vector3", "Position", "The local position of the transform.")
+                .Field("Quaternion", "Rotation", "The local rotation of the transform.")
+                .Field("Vector3", "EulerAngles", "The local rotation expressed in degrees.")
+                .Field("Vector3", "Scale", "The local scale of the transform.")
+                .Field("Transform?", "Parent", "The parent transform in the hierarchy, or null if this is a root transform.")
+                .Field("List<Transform>", "Children", "The list of child transforms attached to this transform.")
+                .Field("Transform", "Identity", "A transform with zero position and rotation, and a scale of one.")
+
+                // === Constructor ===
+                .Method("Transform", "Transform(Vector3 position, Quaternion rotation, Vector3 scale)", "Creates a new transform with the given position, rotation, and scale.", mb => mb
+                    .Parameter("position:", "The initial position.")
+                    .Parameter("rotation:", "The initial rotation as a quaternion.")
+                    .Parameter("scale:", "The initial scale.")
+                )
+
+                // === Methods ===
+
+                .Method("Transform", "SetPosition(Vector3 position)", "Sets the local position of the transform.", mb => mb
+                    .Parameter("position:", "The new position.")
+                )
+
+                .Method("Transform", "SetRotationInDegrees(Vector3 rotation)", "Sets the local rotation of the transform, in degrees.", mb => mb
+                    .Parameter("rotation:", "The new rotation in degrees.")
+                )
+
+                .Method("Transform", "SetRotation(Quaternion rotation)", "Sets the local rotation of the transform, as a quaternion.", mb => mb
+                    .Parameter("rotation:", "The new rotation.")
+                )
+
+                .Method("Transform", "SetScale(Vector3 scale)", "Sets the local scale of the transform.", mb => mb
+                    .Parameter("scale:", "The new scale.")
+                )
+
+                .Method("Transform", "SetTransform(Transform transform)", "Copies position, rotation, and scale from another transform.", mb => mb
+                    .Parameter("transform:", "The transform to copy from.")
+                )
+
+                .Method("Transform", "SetPositionListener(Func<Vector3> posListener)", "Sets a listener that drives the position each frame.", mb => mb
+                    .Parameter("posListener:", "Function that returns the new position each update.")
+                )
+
+                .Method("Transform", "SetRotationInDegreesListener(Func<Vector3> rotDegListener)", "Sets a listener that drives the rotation in degrees each frame.", mb => mb
+                    .Parameter("rotDegListener:", "Function that returns the new rotation in degrees each update.")
+                )
+
+                .Method("Transform", "SetRotationListener(Func<Quaternion> rotListener)", "Sets a listener that drives the rotation quaternion each frame.", mb => mb
+                    .Parameter("rotListener:", "Function that returns the new rotation quaternion each update.")
+                )
+
+                .Method("Transform", "SetScaleListener(Func<Vector3> scaleListener)", "Sets a listener that drives the scale each frame.", mb => mb
+                    .Parameter("scaleListener:", "Function that returns the new scale each update.")
+                )
+
+                .Method("Vector3", "Forward", "Gets the forward direction of the transform in world space.")
+
+                .Method("Transform", "AddChild(Transform child)", "Adds a child transform to this transform.", mb => mb
+                    .Parameter("child:", "The child transform to add.")
+                )
+
+                .Method("Transform", "SetParent(Transform parent)", "Sets this transform as a child of another transform.", mb => mb
+                    .Parameter("parent:", "The parent transform.")
+                )
+
+                .Method("Matrix4", "TransformationMatrix", "Gets the local transformation matrix for this transform.")
+
+                .Method("Matrix4", "WorldMatrix", "Gets the world transformation matrix, including all parent transforms.")
+
+                .Method("void", "Load()", "Called when the scene is loaded.")
+
+                .Method("void", "Update(float deltaTime)", "Updates the transform and applies any listeners.", mb => mb
+                    .Parameter("deltaTime:", "Time elapsed since the last update.")
+                )
+
+                .Method("void", "OnAdd()", "Called when the component is attached to an entity.")
+            )
+
+            // === Example Section ===
+            .Section("Example Usage:", s => s
+                .CodeBlock(
+@"using RCS;
+using OpenTK.Mathematics;
+
+var entity = new Entity(""Player"");
+
+// Basic transform setup
+entity.Transform
+    .SetPosition(new Vector3(0, 1, 0))
+    .SetRotationInDegrees(new Vector3(0, 90, 0))
+    .SetScale(new Vector3(2, 2, 2));
+
+// Attach listeners to drive the transform from external logic
+float time = 0f;
+
+entity.Transform
+    .SetPositionListener(() => new Vector3(
+        MathF.Sin(time),
+        1.0f,
+        0.0f))
+    .SetRotationInDegreesListener(() => new Vector3(
+        0.0f,
+        time * 45.0f,
+        0.0f))
+    .SetScaleListener(() => new Vector3(
+        1.0f + 0.25f * MathF.Sin(time),
+        1.0f + 0.25f * MathF.Sin(time),
+        1.0f));
+
+// Parenting
+var child = new Transform(Vector3.Zero, Quaternion.Identity, Vector3.One);
+entity.Transform.AddChild(child);
+
+// Update loop
+while (running)
+{
+    // deltaTime assumed to be computed elsewhere
+    time += deltaTime;
+    entity.Transform.Update(deltaTime);
+}")
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

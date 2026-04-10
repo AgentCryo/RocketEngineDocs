@@ -1,0 +1,54 @@
+@page "/RERL/GBuffer"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RERL/GBuffer")
+            .Title("GBuffer")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RERL")
+            .Library("RERL")
+            .Paragraph("Represents the deferred rendering G‑Buffer used by the RenderPipeline. Contains color, position, normal, and depth textures, along with the framebuffer object (FBO) that stores them.")
+            .Members(m => m
+
+                // === Struct ===
+                .Struct("GBuffer", "Represents a G‑Buffer with multiple render targets used for deferred shading.", s => {
+                    s.Add(new MembersBuilder.DataField("int", "Position", "The texture ID storing world‑space positions."));
+                    s.Add(new MembersBuilder.DataField("int", "Color", "The texture ID storing albedo color."));
+                    s.Add(new MembersBuilder.DataField("int", "Normal", "The texture ID storing world‑space normals."));
+                    s.Add(new MembersBuilder.DataField("int", "Depth", "The texture ID storing depth values."));
+                    s.Add(new MembersBuilder.DataField("int", "FBO", "The framebuffer object that contains all G‑Buffer attachments."));
+                })
+
+                // === Constructor ===
+                .Method("GBuffer", "GBuffer(Vector2i screenSize)", "Creates a new G‑Buffer with color, position, normal, and depth attachments sized to the screen.", mb => mb
+                    .Parameter("screenSize:", "The size of the framebuffer in pixels.")
+                )
+
+                // === Accessors ===
+                .Method("int", "GetPosition()", "Gets the position texture attachment.")
+                .Method("int", "GetColor()", "Gets the color texture attachment.")
+                .Method("int", "GetNormal()", "Gets the normal texture attachment.")
+                .Method("int", "GetDepth()", "Gets the depth texture attachment.")
+                .Method("int", "GetFBO()", "Gets the framebuffer object ID.")
+
+                // === Methods ===
+                .Method("void", "Clear()", "Clears all G‑Buffer attachments, including color, normal, position, and depth.")
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc

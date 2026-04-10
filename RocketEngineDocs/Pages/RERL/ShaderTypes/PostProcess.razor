@@ -1,0 +1,49 @@
+@page "/RERL/ShaderTypes/PostProcess"
+@using RocketEngineDocs.Components
+@implements IDocPage
+
+@using static RocketEngineDocs.Components.DocBuilder
+
+@code {
+    RenderFragment doc;
+    DocBuilder builder;
+
+    public DocBuilder BuildDoc()
+    {
+        return DocBuilder.Create("/RERL/ShaderTypes/PostProcess")
+            .Title("PostProcess")
+            .Subtitle("Updated for v0.2.0")
+            .Namespace("RERL.ShaderTypes")
+            .Implements(("Shader", "/RERL/ShaderTypes/Shader"))
+            .Library("RERL")
+            .Paragraph("Represents a post‑processing shader that renders a full‑screen pass using the output of the geometry buffer. Post‑processing passes are executed after the geometry stage and can be chained together through the RenderPipeline.")
+            .Paragraph("PostProcess inherits from Shader and is intended for full‑screen effects such as bloom, tone‑mapping, color grading, and custom screen‑space operations.")
+            .Members(m => m
+
+                // === AttachPostProcessShader ===
+                .Method("PostProcess", "AttachPostProcessShader(string postProcessFragmentPath, GameWindow window)", 
+                    "Loads and attaches the post‑processing shader using the default post‑process vertex shader.", 
+                    mb => mb
+                        .Parameter("postProcessFragmentPath:", "Path to the fragment shader used for post‑processing.")
+                        .Parameter("window:", "The game window used to size post‑process resources (if needed).")
+                )
+
+                // === RenderPostProcess ===
+                .Method("void", "RenderPostProcess(GBuffer gbuffer, int VAO, bool renderToScreen)", 
+                    "Executes the post‑processing shader using the provided G‑Buffer as input and renders a full‑screen triangle.", 
+                    mb => mb
+                        .Parameter("gbuffer:", "The input G‑Buffer from the geometry pass.")
+                        .Parameter("VAO:", "The VAO containing a full‑screen triangle.")
+                        .Parameter("renderToScreen:", "If true, the result is drawn to the default framebuffer (screen); otherwise it is rendered back into the provided G‑Buffer.")
+                )
+            );
+    }
+
+    protected override void OnInitialized()
+    {
+        builder = BuildDoc();
+        doc = builder.Build();
+    }
+}
+
+@doc
