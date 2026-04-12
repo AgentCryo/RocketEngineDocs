@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "RocketEngineDocs",
   "resources": {
-    "hash": "sha256-8MbTZT7IS9YdKhmzMqvYP3WAgKm+jf8QsLPSsH5OiBA=",
+    "hash": "sha256-S0YagxGy5jHEX2xpQwO0EzDorzNOIq0+ZMyTgb3DKVc=",
     "fingerprinting": {
       "Microsoft.AspNetCore.Components.0f55fpovjl.wasm": "Microsoft.AspNetCore.Components.wasm",
       "Microsoft.AspNetCore.Components.Web.8jbma652u7.wasm": "Microsoft.AspNetCore.Components.Web.wasm",
@@ -35,7 +35,7 @@
       "System.Text.RegularExpressions.qhcsf9u1lx.wasm": "System.Text.RegularExpressions.wasm",
       "System.Threading.cy526l72bt.wasm": "System.Threading.wasm",
       "System.Private.CoreLib.1h6bpbr98b.wasm": "System.Private.CoreLib.wasm",
-      "RocketEngineDocs.luccyr2l1s.wasm": "RocketEngineDocs.wasm",
+      "RocketEngineDocs.pazlv6dpbs.wasm": "RocketEngineDocs.wasm",
       "dotnet.js": "dotnet.js",
       "dotnet.native.50iqa8w3ys.js": "dotnet.native.js",
       "dotnet.native.pk43x8e436.wasm": "dotnet.native.wasm",
@@ -93,7 +93,7 @@
       "System.Text.Json.h6jruwiato.wasm": "sha256-J2h8It3KEE7eVU+nR3IyBWHVxVMv0KvA7MTuDKKmYtc=",
       "System.Text.RegularExpressions.qhcsf9u1lx.wasm": "sha256-wn7A6lyHyUX6ncCXE68PB0fgNpaI8xcNLGHt7qHCuQo=",
       "System.Threading.cy526l72bt.wasm": "sha256-XEsgkzB/5E/EJIekQAKL/++ZBvHe055n9Zo6Q2Ce2Zo=",
-      "RocketEngineDocs.luccyr2l1s.wasm": "sha256-DdopQa7JF2xy3jxkhQmW/7/TCkjI7FzI8YZ3lgqz/Xc="
+      "RocketEngineDocs.pazlv6dpbs.wasm": "sha256-D/NC6j2GUkrqlaEppgay9gn27SnUjFYL5CNegCWlF/M="
     }
   },
   "cacheBootResources": true,

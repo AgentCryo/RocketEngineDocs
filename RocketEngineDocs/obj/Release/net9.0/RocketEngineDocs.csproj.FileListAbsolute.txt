@@ -1084,10 +1084,10 @@ C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\refint\RocketEngineDocs.dll
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\RocketEngineDocs.pdb
 C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\ref\RocketEngineDocs.dll
-C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\RocketEngineDocs.luccyr2l1s.wasm
-C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\RocketEngineDocs.vutmvq2we5.pdb
-C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\RocketEngineDocs.luccyr2l1s.wasm.gz
-C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\RocketEngineDocs.vutmvq2we5.pdb.gz
-C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\compressed\li2a841xfi-luccyr2l1s.gz
-C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\compressed\lfcdg5pi8b-vutmvq2we5.gz
-C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\compressed\cnml3dms8f-hk8spk9o91.gz
+C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\RocketEngineDocs.pazlv6dpbs.wasm
+C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\RocketEngineDocs.vwvfkkvm6k.pdb
+C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\RocketEngineDocs.pazlv6dpbs.wasm.gz
+C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\bin\Release\net9.0\wwwroot\_framework\RocketEngineDocs.vwvfkkvm6k.pdb.gz
+C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\compressed\li2a841xfi-pazlv6dpbs.gz
+C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\compressed\lfcdg5pi8b-vwvfkkvm6k.gz
+C:\Users\Colton\RiderProjects\RocketEngineDocs\RocketEngineDocs\obj\Release\net9.0\compressed\cnml3dms8f-mwfmvmutb6.gz
